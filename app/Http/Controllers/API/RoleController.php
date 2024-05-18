@@ -9,13 +9,27 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
+
+     /**
+     * @var array
+     */
+    protected $response = [];
+    protected $status = 200;
+    
     
     public function index(){
         $roles = Role::paginate('10');
         if(empty($roles)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);    
         }
-        return response()->json(['roles' => $roles], 200);
+        $this->response['message'] = 'Roles list';
+        $this->response['data'] = $roles;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
     /**
@@ -29,54 +43,85 @@ class RoleController extends Controller
         ]);
   
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status);
         }
         
         $role = new Role();
         $role->name = $request->name;
         $role->guard_name = 'api';
         $role->save();
-  
-        return response()->json(['role' => $role], 201);
+    
+        $this->response['message'] = 'Role created successfully!';
+        $this->response['data'] = $role;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
-    public function show($id){
-        $role = Role::find($id);
+    public function detail($role_id){
+        $role = Role::find($role_id);
         if(empty($role)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
-        return response()->json(['role' => $role], 201);
+        $this->response['message'] = 'Role details!';
+        $this->response['data'] = $role;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $role_id){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
   
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status);
         }
         
-        $role = Role::find($id);
+        $role = Role::find($role_id);
         if(empty($role)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
         $role->name = $request->name;
         $role->guard_name = 'api';
         $role->save();
-  
-        return response()->json(['role' => $role], 201);
-       
+        
+        $this->response['message'] = 'Role updated successfully!';
+        $this->response['data'] = $role;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
-    public function destroy($id){
-        $role = Role::find($id);
+    public function destroy($role_id){
+        $role = Role::find($role_id);
         if(empty($role)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);   
         }
         $role->delete();
 
-        return response()->json(['role' => $role], 201);
+        $this->response['message'] = 'Role deleted successfully!';
+        $this->response['data'] = $role;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
 
     }
 }

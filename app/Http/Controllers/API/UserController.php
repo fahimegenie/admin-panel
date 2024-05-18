@@ -12,12 +12,26 @@ class UserController extends Controller
 {
     use ImageStorageTrait;
     
+
+     /**
+     * @var array
+     */
+    protected $response = [];
+    protected $status = 200;
+    
     public function index(){
         $users = User::paginate('10');
         if(empty($users)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
-        return response()->json(['users' => $users], 200);
+        $this->response['message'] = 'Users list!';
+        $this->response['data'] = $users;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
     /**
@@ -36,7 +50,11 @@ class UserController extends Controller
         ]);
   
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status);
         }
         
         $user = new User();
@@ -53,20 +71,31 @@ class UserController extends Controller
             $image_name = $this->storeImage($picture, $folder);
         }
         $user->profile_pic = $image_name;
-
         $user->save();
-  
-        return response()->json(['user' => $user], 201);
+        
+        $this->response['message'] = 'User created successfully!';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
     }
 
-    public function show($id){
-        $user = User::find($id);
+    public function detail($user_id){
+        $user = User::find($user_id);
         if(empty($user)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
-        return response()->json(['user' => $user], 201);
+        $this->response['message'] = 'User detail!';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $user_id){
 
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
@@ -78,12 +107,20 @@ class UserController extends Controller
         ]);
   
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
         }
         
-        $user = User::find($id);
+        $user = User::find($user_id);
         if(empty($user)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);     
         }
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -100,19 +137,28 @@ class UserController extends Controller
         $user->profile_pic = $image_name;
 
         $user->save();
-  
-        return response()->json(['user' => $user], 201);
-       
+    
+        $this->response['message'] = 'User updated successfully!';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
-    public function destroy($id){
-        $user = User::find($id);
+    public function destroy($user_id){
+        $user = User::find($user_id);
         if(empty($user)){
-            return response()->json(['message' => 'Record not found'], 400);    
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
         $user->delete();
 
-        return response()->json(['user' => $user], 201);
+        $this->response['message'] = 'User deleted successfully!';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
 
     }
 }

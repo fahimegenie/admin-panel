@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ApiController;
 use App\Models\User;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
@@ -13,6 +14,13 @@ class AuthController extends ApiController
 
     use ImageStorageTrait;
     
+
+     /**
+     * @var array
+     */
+    protected $response = [];
+    protected $status = 200;
+
     /**
      * Register a User.
      *
@@ -27,9 +35,13 @@ class AuthController extends ApiController
             'mobile_number' => 'required',
             'profile_pic' => 'required'
         ]);
-  
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+    
+        if ($validator->fails()) {
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status);
         }
         
         $user = new User();
@@ -46,10 +58,13 @@ class AuthController extends ApiController
             $image_name = $this->storeImage($picture, $folder);
         }
         $user->profile_pic = $image_name;
-
         $user->save();
-  
-        return response()->json($user, 201);
+
+        $this->response['message'] = 'User created successfully';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
     }
   
   
@@ -62,11 +77,28 @@ class AuthController extends ApiController
     {
         $credentials = request(['email', 'password']);
         $token = auth()->attempt($credentials);
+
         if (!$token) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            $this->status = 401;
+            $this->response['success'] = false;
+            $this->response['message'] = 'Invalid user or password'; //'Unauthorized';
+            $this->response['status'] = $this->status;
+            return response()->json($this->response, $this->status);
         }
-  
-        return $this->respondWithToken($token);
+
+        $user = Auth::user();
+
+        $token = $this->respondWithToken($token);
+
+        $data['user'] = $user;
+        $data['user']['token'] = $token;
+        
+        $this->response['success'] = true;
+        $this->response['data'] = $data;
+        $this->response['message'] = 'User login successfully';
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
     }
   
     /**
@@ -110,6 +142,7 @@ class AuthController extends ApiController
      */
     protected function respondWithToken($token)
     {
+        return $token;
         $user = auth()->user();
         $user->access_token = $token;
         $user->token_type = 'bearer';
