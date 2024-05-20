@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\PatienCaseController;
+use App\Http\Controllers\API\PendingApprovalController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
@@ -49,6 +50,14 @@ Route::middleware('auth:api')->group(function () {
         Route::get('patient_cases/{p_case_id}', 'detail');
         Route::post('patient_cases/update/{p_case_id}', 'update');
         Route::delete('patient_cases/{p_case_id}', 'delete');
+    });
+
+    Route::controller(PendingApprovalController::class)->group(function () {
+        Route::get('pending_approvals', 'index');
+        Route::post('pending_approvals/store', 'store');
+        Route::get('pending_approvals/{pending_approval_id}', 'detail');
+        Route::post('pending_approvals/update/{pending_approval_id}', 'update');
+        Route::delete('pending_approvals/{pending_approval_id}', 'delete');
     });
 
 

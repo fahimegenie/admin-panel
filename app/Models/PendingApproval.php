@@ -22,4 +22,10 @@ class PendingApproval extends Model
             'status',
             'created_by',
         ];
+    
+        protected $with = ['patinet_cases'];
+
+    public function patinet_cases(){
+        return $this->belongsTo(PatientCase::class, 'p_case_id');
+    }
 }
