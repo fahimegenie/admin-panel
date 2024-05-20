@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\PendingApproval;
+use App\Models\ModificationReceived;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PendingApprovalController extends Controller
+class ModificationReceivedController extends Controller
 {
     
-     /**
+    /**
      * @var array
      */
     protected $response = [];
     protected $status = 200;
     
     public function index(){
-        $pending_approvals = PendingApproval::paginate('10');
-        if(empty($pending_approvals)){
+        $modification_receiveds = ModificationReceived::paginate('10');
+        if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $this->response['message'] = 'Pending approvals list!';
-        $this->response['data'] = $pending_approvals;
+        $this->response['message'] = 'Modification receiveds list!';
+        $this->response['data'] = $modification_receiveds;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
@@ -54,40 +54,40 @@ class PendingApprovalController extends Controller
             return response()->json($this->response, $this->status);
         }
         
-        $pending_approvals = new PendingApproval();
-        $pending_approvals->p_case_id = $request->p_case_id;
-        $pending_approvals->simulation_link_url = $request->simulation_link_url;
-        $pending_approvals->ipr_chart = $request->ipr_chart;
-        $pending_approvals->comments = $request->comments;
-        $pending_approvals->status = $request->status;
-        $pending_approvals->created_by = auth()->user()->id;
-        $pending_approvals->save();
+        $modification_receiveds = new ModificationReceived();
+        $modification_receiveds->p_case_id = $request->p_case_id;
+        $modification_receiveds->simulation_link_url = $request->simulation_link_url;
+        $modification_receiveds->ipr_chart = $request->ipr_chart;
+        $modification_receiveds->comments = $request->comments;
+        $modification_receiveds->status = $request->status;
+        $modification_receiveds->created_by = auth()->user()->id;
+        $modification_receiveds->save();
         
-        $this->response['message'] = 'Pending approvals created successfully!';
-        $this->response['data'] = $pending_approvals;
+        $this->response['message'] = 'Modification received created successfully!';
+        $this->response['data'] = $modification_receiveds;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 
     }
 
-    public function detail($pending_approval_id){
+    public function detail($modification_received_id){
 
-        $pending_approvals = PendingApproval::find($pending_approval_id);
+        $modification_receiveds = ModificationReceived::find($modification_received_id);
         
-        if(empty($pending_approvals)){
+        if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $this->response['message'] = 'Pending approval detail!';
-        $this->response['data'] = $pending_approvals;
+        $this->response['message'] = 'Modification received detail!';
+        $this->response['data'] = $modification_receiveds;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $pending_approval_id){
+    public function update(Request $request, $modification_received_id){
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
@@ -96,7 +96,7 @@ class PendingApprovalController extends Controller
             'comments' => 'required',
             'status' => 'required',
         ]);
-  
+        
         if($validator->fails()){
             $this->status = 422;
             $this->response['status'] = $this->status;
@@ -105,8 +105,8 @@ class PendingApprovalController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $pending_approvals = PendingApproval::find($pending_approval_id);
-        if(empty($pending_approvals)){
+        $modification_receiveds = ModificationReceived::find($modification_received_id);
+        if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
@@ -114,36 +114,37 @@ class PendingApprovalController extends Controller
             return response()->json($this->response, $this->status);     
         }
         
-        $pending_approvals->p_case_id = $request->p_case_id;
-        $pending_approvals->simulation_link_url = $request->simulation_link_url;
-        $pending_approvals->ipr_chart = $request->ipr_chart;
-        $pending_approvals->comments = $request->comments;
-        $pending_approvals->status = $request->status;
-        $pending_approvals->created_by = auth()->user()->id;
-        $pending_approvals->save();
+        $modification_receiveds->p_case_id = $request->p_case_id;
+        $modification_receiveds->simulation_link_url = $request->simulation_link_url;
+        $modification_receiveds->ipr_chart = $request->ipr_chart;
+        $modification_receiveds->comments = $request->comments;
+        $modification_receiveds->status = $request->status;
+        $modification_receiveds->created_by = auth()->user()->id;
+        $modification_receiveds->save();
 
     
-        $this->response['message'] = 'Pending approvals updated successfully!';
-        $this->response['data'] = $pending_approvals;
+        $this->response['message'] = 'Modification received updated successfully!';
+        $this->response['data'] = $modification_receiveds;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($pending_approval_id){
-        $pending_approvals = PendingApproval::find($pending_approval_id);
-        if(empty($pending_approvals)){
+    public function destroy($modification_received_id){
+        $modification_receiveds = ModificationReceived::find($modification_received_id);
+        if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $pending_approvals->delete();
+        $modification_receiveds->delete();
 
-        $this->response['message'] = 'Pending approvals deleted successfully!';
-        $this->response['data'] = $pending_approvals;
+        $this->response['message'] = 'Modification received deleted successfully!';
+        $this->response['data'] = $modification_receiveds;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 
     }
+
 }

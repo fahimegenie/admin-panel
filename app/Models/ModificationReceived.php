@@ -22,4 +22,10 @@ class ModificationReceived extends Model
                     'created_by',
                     'status',
         ];
+
+    protected $with = ['patinet_cases'];
+
+    public function patinet_cases(){
+        return $this->belongsTo(PatientCase::class, 'p_case_id');
+    }
 }

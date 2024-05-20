@@ -23,7 +23,7 @@ class PendingApproval extends Model
             'created_by',
         ];
     
-        protected $with = ['patinet_cases'];
+    protected $with = ['patinet_cases'];
 
     public function patinet_cases(){
         return $this->belongsTo(PatientCase::class, 'p_case_id');

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\ModificationReceivedController;
+use App\Http\Controllers\API\NeedMoreInfoController;
 use App\Http\Controllers\API\PatienCaseController;
 use App\Http\Controllers\API\PendingApprovalController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\StepFileReadyController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,5 +63,32 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('pending_approvals/{pending_approval_id}', 'delete');
     });
 
+    Route::controller(ModificationReceivedController::class)->group(function () {
+        Route::get('modification_receiveds', 'index');
+        Route::post('modification_receiveds/store', 'store');
+        Route::get('modification_receiveds/{modification_received_id}', 'detail');
+        Route::post('modification_receiveds/update/{modification_received_id}', 'update');
+        Route::delete('modification_receiveds/{modification_received_id}', 'delete');
+    });
+
+    Route::controller(NeedMoreInfoController::class)->group(function () {
+        Route::get('need_more_infos', 'index');
+        Route::post('need_more_infos/store', 'store');
+        Route::get('need_more_infos/{need_more_info_id}', 'detail');
+        Route::post('need_more_infos/update/{need_more_info_id}', 'update');
+        Route::delete('need_more_infos/{need_more_info_id}', 'delete');
+    });
+
+    Route::controller(StepFileReadyController::class)->group(function () {
+        Route::get('step_file_readys', 'index');
+        Route::post('step_file_readys/store', 'store');
+        Route::get('step_file_readys/{step_file_ready_id}', 'detail');
+        Route::post('step_file_readys/update/{step_file_ready_id}', 'update');
+        Route::delete('step_file_readys/{step_file_ready_id}', 'delete');
+    });
+
+
+    
+    
 
 });
