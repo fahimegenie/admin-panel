@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\PatienCaseController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
@@ -41,5 +42,14 @@ Route::middleware('auth:api')->group(function () {
         Route::post('permissions/update/{permission_id}', 'update');
         Route::delete('permissions/{permission_id}', 'delete');
     });
+
+    Route::controller(PatienCaseController::class)->group(function () {
+        Route::get('patient_cases', 'index');
+        Route::post('patient_cases/store', 'store');
+        Route::get('patient_cases/{p_case_id}', 'detail');
+        Route::post('patient_cases/update/{p_case_id}', 'update');
+        Route::delete('patient_cases/{p_case_id}', 'delete');
+    });
+
 
 });

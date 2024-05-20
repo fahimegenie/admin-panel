@@ -1,0 +1,61 @@
+1. patient_case
+	01. id
+	02. name
+	03. email
+	04. extraction text
+	05. attachments long text
+	06. case_id
+	07. age
+	08. gender
+	09. ipr
+	10. chief_complaint textbox
+	11. treatment_plan long text
+	12. stl_upper_file
+	13. stl_lower_file
+	14. stl_byte_scan_file
+	15. created_by
+
+2. xrays
+	1. id
+	2. file_name
+	3. type
+	4. order
+	5. status
+
+3. images
+	1. id
+	2. file_name
+	3. type
+	4. order
+	5. status
+
+4. need_more_info
+	1. id
+	2. case_id
+	3. notes
+	4. created_by
+
+5. pending_approval
+	1. id
+	2. case_id
+	3. simulation_link_url
+	4. ipr_chart
+	5. comments
+	6. status
+	7. created_by
+
+6. step_file_ready
+	1. id
+	2. case_id
+	3. error longtext
+	4. created_by
+
+7. modification_received
+	1. id
+	2. case_id
+	3. simulation_link_url
+	4. ipr_chart
+	5. comments long text
+	6. created_by
+
+
