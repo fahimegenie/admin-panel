@@ -75,7 +75,6 @@ class PatienCaseController extends Controller
         $patient_cases->case_id = $request->case_id;
         $patient_cases->age = $request->age;
         $patient_cases->gender = $request->gender;
-        $patient_cases->ipr = $request->ipr;
         $patient_cases->chief_complaint = $request->chief_complaint;
         $patient_cases->treatment_plan = $request->treatment_plan;
         $patient_cases->created_by = auth()->user()->id;
@@ -83,6 +82,7 @@ class PatienCaseController extends Controller
         $stl_upper_file = '';
         $stl_lower_file = '';
         $stl_byte_scan_file = '';
+        $ipr = '';
         if($request->hasFile('stl_upper_file')){
             $picture = $request->file('stl_upper_file');
             $folder = 'uploads/stl'; 
@@ -98,9 +98,15 @@ class PatienCaseController extends Controller
             $folder = 'uploads/stl'; 
             $stl_byte_scan_file = $this->storeImage($picture, $folder);
         }
+        if($request->hasFile('ipr')){
+            $picture = $request->file('ipr');
+            $folder = 'uploads/pdf'; 
+            $ipr = $this->storeImage($picture, $folder);
+        }
         $patient_cases->stl_upper_file = $stl_upper_file;
         $patient_cases->stl_lower_file = $stl_lower_file;
         $patient_cases->stl_byte_scan_file = $stl_byte_scan_file;
+        $patient_cases->ipr = $ipr;
         $patient_cases->save();
 
         $p_case_id = $patient_cases->id;
@@ -206,6 +212,7 @@ class PatienCaseController extends Controller
         $stl_upper_file = $patient_cases->stl_upper_file;
         $stl_lower_file = $patient_cases->stl_lower_file;
         $stl_byte_scan_file = $patient_cases->stl_byte_scan_file;
+        $ipr = $patient_cases->ipr;
 
         if($request->hasFile('stl_upper_file')){
             $picture = $request->file('stl_upper_file');
@@ -222,9 +229,15 @@ class PatienCaseController extends Controller
             $folder = 'uploads/stl'; 
             $stl_byte_scan_file = $this->storeImage($picture, $folder);
         }
+        if($request->hasFile('ipr')){
+            $picture = $request->file('ipr');
+            $folder = 'uploads/pdf'; 
+            $ipr = $this->storeImage($picture, $folder);
+        }
         $patient_cases->stl_upper_file = $stl_upper_file;
         $patient_cases->stl_lower_file = $stl_lower_file;
         $patient_cases->stl_byte_scan_file = $stl_byte_scan_file;
+        $patient_cases->ipr = $ipr;
         $patient_cases->save();
 
         $p_case_id = $patient_cases->id;
