@@ -10,12 +10,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject; 
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, SoftDeletes, Uuids;
+    use HasFactory, Notifiable, SoftDeletes, Uuids, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +49,9 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    protected $appends = ['role_name', 'permissions'];
+
+
     /**
      * Get the attributes that should be cast.
      *
@@ -82,4 +84,23 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function getRoleNameAttribute()
+    {
+        $role = $this->roles->pluck('name');
+        // dd($this->roles()->getPermissions());
+        if(!empty($role) && isset($role[0]))
+            return $role[0];
+        return 0; 
+
+    }
+
+    public function getPermissionsAttribute()
+    {
+        return $this->roles->map(function ($role) {
+            return $role->permissions;
+        })->collapse()->pluck('name')->unique();
+    }
+   
+    
 }

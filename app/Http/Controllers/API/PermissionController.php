@@ -124,4 +124,49 @@ class PermissionController extends Controller
         return response()->json($this->response, $this->status);
     }
 
+    public function assignPermissions(){
+
+        $user = User::findOrFail($request->user_id);
+        if(!empty($user)){
+            $permissions = Permission::whereIn('id', [$request->permissions])->pluck('name', 'name')->get();
+            if(!empty($permissions)){
+                foreach ($permissions as $key => $value) {
+                    $user->givePermissionTo($value);    
+                }
+                $this->response['message'] = 'Permission added successfully!';
+                $this->response['data'] = $user;
+                $this->response['status'] = $this->status;
+                return response()->json($this->response, $this->status);
+            }
+        }
+        $this->response['message'] = 'User not found!';
+        $this->response['data'] = [];
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    }
+
+
+    public function removePermissions(){
+        $user = User::findOrFail($request->user_id);
+        if(!empty($user)){
+            $permissions = Permission::whereIn('id', [$request->permissions])->pluck('name', 'name')->get();
+            if(!empty($permissions)){
+                foreach ($permissions as $key => $value) {
+                    $user->revokePermissionTo($value);    
+                }
+
+                $this->response['message'] = 'Permission removed successfully!';
+                $this->response['data'] = $user;
+                $this->response['status'] = $this->status;
+                return response()->json($this->response, $this->status);
+            }
+        }
+        $this->response['message'] = 'User not found!';
+        $this->response['data'] = [];
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    
+    }
+
+
 }
