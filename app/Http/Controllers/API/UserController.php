@@ -123,7 +123,6 @@ class UserController extends Controller
             return response()->json($this->response, $this->status);     
         }
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->username = $request->first_name.' '.$request->last_name;
@@ -140,7 +139,7 @@ class UserController extends Controller
         if(isset($request->role_id) && !empty($request->role_id)){
             $role = Role::findOrFail($request->role_id);
             if(!empty($role)){
-                $user->assignRole([$role->name]);
+                $user->syncRoles([$role->name]);
             }
 
             if(isset($request->permissions) && !empty($request->permissions) && is_array($request->permissions)){
