@@ -92,7 +92,7 @@ class UserTableSeeder extends Seeder
 
         $allPermissions = Permission::all();
         $adminRole = Role::where('name', 'super_admin')->first();
-
+        $adminRole->givePermissionTo($allPermissions)
         // create super admin 
         $user = new User();
         $user->email = 'admin@admin.com';
