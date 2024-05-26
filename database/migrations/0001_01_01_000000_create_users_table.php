@@ -27,7 +27,11 @@ return new class extends Migration
             $table->unsignedTinyInteger('added_by')->default(0);
             $table->unsignedTinyInteger('is_account_owner')->default(0);
             $table->unsignedTinyInteger('is_active')->default(0);
+            $table->unsignedTinyInteger('client_id')->default(0);
+            $table->unsignedTinyInteger('sub_client_id')->default(0);
+            $table->unsignedTinyInteger('created_by')->default(0);
             $table->datetime('last_login')->nullable();
+            $table->string('clinic_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

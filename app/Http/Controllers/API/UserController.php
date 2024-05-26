@@ -22,7 +22,7 @@ class UserController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::paginate('10');
+        $users = User::where('id', '<>', auth()->user()->id)->paginate('10');
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -82,8 +82,8 @@ class UserController extends Controller
 
     }
 
-    public function detail($user_id){
-        $user = User::find($user_id);
+    public function detail($guid){
+        $user = User::where('guid', $guid)->first();
         if(empty($user)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -97,7 +97,7 @@ class UserController extends Controller
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $user_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
@@ -114,7 +114,7 @@ class UserController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $user = User::find($user_id);
+        $user = User::where('guid', $guid)->first();
         if(empty($user)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -161,8 +161,8 @@ class UserController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($user_id){
-        $user = User::find($user_id);
+    public function destroy($guid){
+        $user = User::where('guid', $guid)->first();
         if(empty($user)){
             $this->status = 400;
             $this->response['status'] = $this->status;

@@ -18,7 +18,7 @@ class RoleController extends Controller
     
     
     public function index(){
-        $roles = Role::paginate('10');
+        $roles = Role::all();
         if(empty($roles)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -61,8 +61,8 @@ class RoleController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function detail($role_id){
-        $role = Role::find($role_id);
+    public function detail($guid){
+        $role = Role::where('guid', $guid)->first();
         if(empty($role)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -75,7 +75,7 @@ class RoleController extends Controller
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
-    public function update(Request $request, $role_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required'
@@ -89,7 +89,7 @@ class RoleController extends Controller
             return response()->json($this->response, $this->status);
         }
         
-        $role = Role::find($role_id);
+        $role = Role::where('guid', $guid)->first();
         if(empty($role)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -107,8 +107,8 @@ class RoleController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($role_id){
-        $role = Role::find($role_id);
+    public function destroy($guid){
+        $role = Role::where('guid', $guid)->first();
         if(empty($role)){
             $this->status = 400;
             $this->response['status'] = $this->status;

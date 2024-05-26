@@ -70,9 +70,9 @@ class ModificationReceivedController extends Controller
 
     }
 
-    public function detail($modification_received_id){
+    public function detail($guid){
 
-        $modification_receiveds = ModificationReceived::find($modification_received_id);
+        $modification_receiveds = ModificationReceived::where('guid', $guid)->first();
         
         if(empty($modification_receiveds)){
             $this->status = 400;
@@ -87,7 +87,7 @@ class ModificationReceivedController extends Controller
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $modification_received_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
@@ -105,7 +105,7 @@ class ModificationReceivedController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $modification_receiveds = ModificationReceived::find($modification_received_id);
+        $modification_receiveds = ModificationReceived::where('guid', $guid)->first();
         if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -129,8 +129,8 @@ class ModificationReceivedController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($modification_received_id){
-        $modification_receiveds = ModificationReceived::find($modification_received_id);
+    public function destroy($guid){
+        $modification_receiveds = ModificationReceived::where('guid', $guid)->first();
         if(empty($modification_receiveds)){
             $this->status = 400;
             $this->response['status'] = $this->status;

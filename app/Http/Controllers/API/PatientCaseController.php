@@ -10,7 +10,7 @@ use App\Models\PatientCase;
 use App\Models\Xray;
 use Illuminate\Support\Facades\Validator;
 
-class PatienCaseController extends Controller
+class PatientCaseController extends Controller
 {
     
     use ImageStorageTrait;
@@ -20,9 +20,17 @@ class PatienCaseController extends Controller
      */
     protected $response = [];
     protected $status = 200;
+    protected $user_id = 0;
+
+    public function __construct(){
+        $this->user_id = auth()->user()->id;
+    }
     
     public function index(){
-        $patient_cases = PatientCase::paginate('10');
+        $patient_cases = [];
+        if(!empty($patient_cases)){
+            $patient_cases = PatientCase::where('created_by', $this->user_id)->paginate('10');
+        }
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -78,6 +86,10 @@ class PatienCaseController extends Controller
         $patient_cases->chief_complaint = $request->chief_complaint;
         $patient_cases->treatment_plan = $request->treatment_plan;
         $patient_cases->created_by = auth()->user()->id;
+
+        if(isset($request->created_by_admin) && !empty($request->created_by_admin)){
+            $request->created_by_admin = $request->created_by_admin;
+        }
         
         $stl_upper_file = '';
         $stl_lower_file = '';
@@ -148,9 +160,9 @@ class PatienCaseController extends Controller
 
     }
 
-    public function detail($p_case_id){
+    public function detail($guid){
 
-        $patient_cases = PatientCase::find($p_case_id);
+        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
         
         if(empty($patient_cases)){
             $this->status = 400;
@@ -165,7 +177,7 @@ class PatienCaseController extends Controller
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $p_case_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -188,7 +200,7 @@ class PatienCaseController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $patient_cases = PatientCase::find($p_case_id);
+        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -207,7 +219,6 @@ class PatienCaseController extends Controller
         $patient_cases->ipr = $request->ipr;
         $patient_cases->chief_complaint = $request->chief_complaint;
         $patient_cases->treatment_plan = $request->treatment_plan;
-        $patient_cases->created_by = auth()->user()->id;
         
         $stl_upper_file = $patient_cases->stl_upper_file;
         $stl_lower_file = $patient_cases->stl_lower_file;
@@ -279,8 +290,8 @@ class PatienCaseController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($p_case_id){
-        $patient_cases = PatientCase::find($p_case_id);
+    public function destroy($guid){
+        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -291,6 +302,40 @@ class PatienCaseController extends Controller
         $patient_cases->delete();
 
         $this->response['message'] = 'Patient case deleted successfully!';
+        $this->response['data'] = $patient_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
+    }
+
+    public function case_assign_to(){
+
+        $validator = Validator::make($request->all(), [
+            'p_case_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+
+        ]);
+  
+        if($validator->fails()){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
+        }
+        
+        $patient_cases = PatientCase::findOrFail($request->p_case_id);
+        if(empty($patient_cases)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);     
+        }
+        $patient_cases->assign_to = $request->user_id;
+        $patient_cases->save();
+
+        $this->response['message'] = 'Patient case assigned successfully!';
         $this->response['data'] = $patient_cases;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);

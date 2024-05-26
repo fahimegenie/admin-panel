@@ -3,30 +3,34 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\NeedMoreInfo;
 use Illuminate\Http\Request;
+use App\Traits\ImageStorageTrait;
 use Illuminate\Support\Facades\Validator;
+use APp\Models\Team;
 
-class NeedMoreInfoController extends Controller
+
+class TeamsController extends Controller
 {
     
-    /**
+    use ImageStorageTrait;
+    
+     /**
      * @var array
      */
     protected $response = [];
     protected $status = 200;
     
     public function index(){
-        $need_more_infos = NeedMoreInfo::paginate('10');
-        if(empty($need_more_infos)){
+        $teams = Team::paginate('10');
+        if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $this->response['message'] = 'Need more infos list!';
-        $this->response['data'] = $need_more_infos;
+        $this->response['message'] = 'Teams list!';
+        $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
@@ -39,11 +43,9 @@ class NeedMoreInfoController extends Controller
     public function store(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'p_case_id' => 'required',
-            'notes' => 'required',
-            'status' => 'required',
+            'name' => 'required|unique:teams',
         ]);
-
+  
         if($validator->fails()){
             $this->status = 422;
             $this->response['status'] = $this->status;
@@ -52,15 +54,20 @@ class NeedMoreInfoController extends Controller
             return response()->json($this->response, $this->status);
         }
         
-        $need_more_infos = new NeedMoreInfo();
-        $need_more_infos->p_case_id = $request->p_case_id;
-        $need_more_infos->notes = $request->notes;
-        $need_more_infos->status = $request->status;
-        $need_more_infos->created_by = auth()->user()->id;
-        $need_more_infos->save();
-        
-        $this->response['message'] = 'Need more info created successfully!';
-        $this->response['data'] = $need_more_infos;
+        $teams = new Team();
+        $teams->name = $request->name;
+        $teams->created_by = auth()->user()->id;
+        $logo = '';
+        if($request->hasFile('logo')){
+            $picture = $request->file('logo');
+            $folder = 'uploads/images'; 
+            $logo = $this->storeImage($picture, $folder);
+        }
+        $teams->logo = $logo;
+        $teams->save();
+
+        $this->response['message'] = 'Team created successfully!';
+        $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 
@@ -68,17 +75,17 @@ class NeedMoreInfoController extends Controller
 
     public function detail($guid){
 
-        $need_more_infos = NeedMoreInfo::where('guid', $guid)->first();
+        $teams = PatientCase::where('guid', $guid)->first();
         
-        if(empty($need_more_infos)){
+        if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $this->response['message'] = 'Need more info detail!';
-        $this->response['data'] = $need_more_infos;
+        $this->response['message'] = 'Team detail!';
+        $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 
@@ -86,12 +93,9 @@ class NeedMoreInfoController extends Controller
     public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
-            'p_case_id' => 'required',
-            'notes' => 'required',
-            'status' => 'required',
+            'name' => 'required|unique:teams,id',
         ]);
-        
-        
+  
         if($validator->fails()){
             $this->status = 422;
             $this->response['status'] = $this->status;
@@ -100,8 +104,8 @@ class NeedMoreInfoController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $need_more_infos = NeedMoreInfo::where('guid', $guid)->first();
-        if(empty($need_more_infos)){
+        $teams = Team::find($guid);
+        if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
@@ -109,32 +113,37 @@ class NeedMoreInfoController extends Controller
             return response()->json($this->response, $this->status);     
         }
         
-        $need_more_infos->p_case_id = $request->p_case_id;
-        $need_more_infos->notes = $request->notes;
-        $need_more_infos->status = $request->status;
-        $need_more_infos->created_by = auth()->user()->id;
-        $need_more_infos->save();
+        $teams->name = $request->name;
+        $teams->created_by = auth()->user()->id;
+        $logo = '';
+        if($request->hasFile('logo')){
+            $picture = $request->file('logo');
+            $folder = 'uploads/images'; 
+            $logo = $this->storeImage($picture, $folder);
+        }
+        $teams->logo = $logo;
+        $teams->save();
 
     
-        $this->response['message'] = 'Need more info updated successfully!';
-        $this->response['data'] = $need_more_infos;
+        $this->response['message'] = 'Team updated successfully!';
+        $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
 
     public function destroy($guid){
-        $need_more_infos = NeedMoreInfo::where('guid', $guid)->first();
-        if(empty($need_more_infos)){
+        $teams = Team::find($guid);
+        if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $need_more_infos->delete();
+        $teams->delete();
 
-        $this->response['message'] = 'Need more info deleted successfully!';
-        $this->response['data'] = $need_more_infos;
+        $this->response['message'] = 'Team deleted successfully!';
+        $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 

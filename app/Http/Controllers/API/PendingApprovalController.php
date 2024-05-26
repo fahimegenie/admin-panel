@@ -70,9 +70,9 @@ class PendingApprovalController extends Controller
 
     }
 
-    public function detail($pending_approval_id){
+    public function detail($guid){
 
-        $pending_approvals = PendingApproval::find($pending_approval_id);
+        $pending_approvals = PendingApproval::where('guid', $guid)->first();
         
         if(empty($pending_approvals)){
             $this->status = 400;
@@ -87,7 +87,7 @@ class PendingApprovalController extends Controller
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $pending_approval_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
@@ -105,7 +105,7 @@ class PendingApprovalController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $pending_approvals = PendingApproval::find($pending_approval_id);
+        $pending_approvals = PendingApproval::where('guid', $guid)->first();
         if(empty($pending_approvals)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -129,8 +129,8 @@ class PendingApprovalController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($pending_approval_id){
-        $pending_approvals = PendingApproval::find($pending_approval_id);
+    public function destroy($guid){
+        $pending_approvals = PendingApproval::where('guid', $guid)->first();
         if(empty($pending_approvals)){
             $this->status = 400;
             $this->response['status'] = $this->status;

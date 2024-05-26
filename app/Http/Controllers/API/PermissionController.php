@@ -16,7 +16,7 @@ class PermissionController extends Controller
     protected $status = 200;
     
     public function index(){
-        $permissions = Permission::paginate('10');
+        $permissions = Permission::all();
         if(empty($permissions)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -59,8 +59,8 @@ class PermissionController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function detail($permission_id){
-        $permission = Permission::find($permission_id);
+    public function detail($guid){
+        $permission = Permission::where('guid', $guid)->first();
         if(empty($permission)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -74,7 +74,7 @@ class PermissionController extends Controller
         return response()->json($this->response, $this->status);
         return response()->json(['permission' => $permission], 201);
     }
-    public function update(Request $request, $permission_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required'
@@ -88,7 +88,7 @@ class PermissionController extends Controller
             return response()->json($this->response, $this->status);
         }
         
-        $permission = Permission::find($permission_id);
+        $permission = Permission::where('guid', $guid)->first();
         if(empty($permission)){
             $this->response['status'] = $this->status;
             $this->response['success'] = true;
@@ -107,8 +107,8 @@ class PermissionController extends Controller
        
     }
 
-    public function destroy($permission_id){
-        $permission = Permission::find($permission_id);
+    public function destroy($guid){
+        $permission = Permission::where('guid', $guid)->first();
         if(empty($permission)){
             $this->status = 400;
             $this->response['status'] = $this->status;

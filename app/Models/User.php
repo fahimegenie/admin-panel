@@ -36,7 +36,11 @@ class User extends Authenticatable implements JWTSubject
         'added_by',
         'is_account_owner',
         'is_active',
-        'last_login'
+        'last_login',
+        'client_id',
+        'sub_client_id',
+        'clinic_name',
+
     ];
 
     /**

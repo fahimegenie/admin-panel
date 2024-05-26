@@ -27,8 +27,10 @@ return new class extends Migration
             $table->string('stl_upper_file')->nullable();
             $table->string('stl_lower_file')->nullable();
             $table->string('stl_byte_scan_file')->nullable();
-            $table->unsignedTinyInteger('created_by');
+            $table->unsignedBigInteger('created_by');
             $table->unsignedTinyInteger('status')->default(0);
+            $table->unsignedBigInteger('assign_to')->default(0);
+            $table->unsignedBigInteger('created_by_admin')->default(0);
             $table->timestamps();
         });
     }

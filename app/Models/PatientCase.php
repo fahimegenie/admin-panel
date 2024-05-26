@@ -30,7 +30,9 @@ class PatientCase extends Model
                 'stl_lower_file',
                 'stl_byte_scan_file',
                 'created_by',
-                'status'
+                'status',
+                'assign_to',
+                'created_by_admin'
         ];
 
     protected $with = ['images', 'xrays'];
@@ -43,3 +45,6 @@ class PatientCase extends Model
     }
     
 }
+
+
+// 0 => 'pending', 1 => 'treatment_planning', 2 => 'quality_checking', 3 => 'treatment_planning_upload', 4 => 'pending_step_files', 5 => 'step_files_uploaded'

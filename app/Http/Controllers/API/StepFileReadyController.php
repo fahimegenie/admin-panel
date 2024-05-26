@@ -66,9 +66,9 @@ class StepFileReadyController extends Controller
 
     }
 
-    public function detail($step_file_ready_id){
+    public function detail($guid){
 
-        $step_file_readys = StepFileReady::find($step_file_ready_id);
+        $step_file_readys = StepFileReady::where('guid', $guid)->first();
         
         if(empty($step_file_readys)){
             $this->status = 400;
@@ -83,7 +83,7 @@ class StepFileReadyController extends Controller
         return response()->json($this->response, $this->status);
 
     }
-    public function update(Request $request, $step_file_ready_id){
+    public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
@@ -100,7 +100,7 @@ class StepFileReadyController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $step_file_readys = StepFileReady::find($step_file_ready_id);
+        $step_file_readys = StepFileReady::where('guid', $guid)->first();
         if(empty($step_file_readys)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -122,8 +122,8 @@ class StepFileReadyController extends Controller
         return response()->json($this->response, $this->status);
     }
 
-    public function destroy($step_file_ready_id){
-        $step_file_readys = StepFileReady::find($step_file_ready_id);
+    public function destroy($guid){
+        $step_file_readys = StepFileReady::where('guid', $guid)->first();
         if(empty($step_file_readys)){
             $this->status = 400;
             $this->response['status'] = $this->status;
