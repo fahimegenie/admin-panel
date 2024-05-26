@@ -10,7 +10,7 @@ class Team extends Model
 {
     use HasFactory, Uuids;
 
-    protected $table = 'users_teams';
+    protected $table = 'teams';
     protected $primaryKey = 'id';
 
     protected $fillable = [

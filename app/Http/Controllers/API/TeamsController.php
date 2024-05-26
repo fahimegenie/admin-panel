@@ -36,7 +36,7 @@ class TeamsController extends Controller
     }
 
     /**
-     * Register a PatientCase.
+     * Register a teams.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -75,7 +75,7 @@ class TeamsController extends Controller
 
     public function detail($guid){
 
-        $teams = PatientCase::where('guid', $guid)->first();
+        $teams = Team::where('guid', $guid)->first();
         
         if(empty($teams)){
             $this->status = 400;
