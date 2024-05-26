@@ -104,7 +104,7 @@ class TeamsController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $teams = Team::find($guid);
+        $teams = Team::where('guid', $guid)->first();
         if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -132,7 +132,7 @@ class TeamsController extends Controller
     }
 
     public function destroy($guid){
-        $teams = Team::find($guid);
+        $teams = Team::where('guid', $guid)->first();
         if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;
