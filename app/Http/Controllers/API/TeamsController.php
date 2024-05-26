@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Support\Facades\Validator;
-use APp\Models\Team;
+use App\Models\Team;
 
 
 class TeamsController extends Controller
