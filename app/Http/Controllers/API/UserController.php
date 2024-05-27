@@ -178,4 +178,30 @@ class UserController extends Controller
         return response()->json($this->response, $this->status);
 
     }
+
+
+    // get treatment planners users
+    public function treatmentPlanners(){
+        $users = User::whereHas("roles", function($q) {
+                                $q->whereIn('name', ['treatment_planner']);
+                            })->get();
+
+        $this->response['message'] = 'Treatment planners successfully!';
+        $this->response['data'] = $users;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
+    }
+    // get treatment planners users
+    public function treatmentPlannersQualityCheck(){
+        $users = User::whereHas("roles", function($q) {
+                                $q->whereIn('name', ['treatment_planner', 'quality_check']);
+                            })->get();
+
+        $this->response['message'] = 'Treatment planners successfully!';
+        $this->response['data'] = $users;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
+    }
 }

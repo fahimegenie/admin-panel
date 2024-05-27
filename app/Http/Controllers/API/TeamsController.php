@@ -146,7 +146,42 @@ class TeamsController extends Controller
         $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
+    }
 
+    public function assignUserToTeams(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'team_id' => 'required|numeric',
+            'user_id' => 'required|array'
+
+        ]);
+  
+        if($validator->fails()){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
+        }
+        $teams = Team::findOrFail($request->team_id);
+        if(empty($teams)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);  
+        }
+
+        if(isset($request->user_id) && !empty($request->user_id)){
+            $teams->users()->sync($request->user_id);
+        }
+        $teams = Team::findOrFail($request->team_id);
+        
+
+        $this->response['message'] = 'Team Create successfully!';
+        $this->response['data'] = $teams;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
     }
 
 }

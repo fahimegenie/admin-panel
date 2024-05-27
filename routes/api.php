@@ -31,6 +31,12 @@ Route::middleware('auth:api')->group(function () {
         Route::get('users/{guid}', 'detail');
         Route::post('users/update/{guid}', 'update');
         Route::delete('users/{guid}', 'delete');
+        Route::get('user/treatment-planners', 'treatmentPlanners');
+        Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck');
+        
+
+
+        
     });
 
     Route::controller(RoleController::class)->group(function () {
@@ -95,6 +101,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('teams/{guid}', 'detail');
         Route::post('teams/update/{guid}', 'update');
         Route::delete('teams/{guid}', 'delete');
+        Route::post('team/assign-teams', 'assignUserToTeams');
+
     });
 
 

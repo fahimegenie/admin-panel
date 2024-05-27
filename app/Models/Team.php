@@ -20,4 +20,10 @@ class Team extends Model
             'created_by',
             'status',
         ];
+
+    protected $with = ['users'];
+
+    public function users(){
+        return $this->belongsToMany(User::class, 'users_teams');
+    }
 }
