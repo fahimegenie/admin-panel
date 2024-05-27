@@ -23,20 +23,19 @@ class PatientCaseController extends Controller
     protected $user_id = 0;
     protected $role_name = '';
     public function __construct(){
-        $this->user_id = auth()->user()->id;
-        $this->role_name = auth()->user()->role_name;
+        if(!empty(auth()->user())){
+            $this->user_id = auth()->user()->id;
+            $this->role_name = auth()->user()->role_name;
+        }
     }
     
     public function index(){
         $patient_cases = [];
-            $patient_cases = PatientCase::
-                                        when($this->role_name, function($q){
-                                            if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
-                                                $q->where('created_by', auth()->user()->id);
-                                            }
-                                        })
-                                        ->
-                                        paginate('10');
+            $patient_cases = PatientCase::when($this->role_name, function($q){
+                                    if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
+                                        $q->where('created_by', auth()->user()->id);
+                                    }
+                                })->paginate('10');
         
         if(empty($patient_cases)){
             $this->status = 400;
@@ -340,6 +339,7 @@ class PatientCaseController extends Controller
             return response()->json($this->response, $this->status);     
         }
         $patient_cases->assign_to = $request->user_id;
+        $patient_cases->status = 2;
         $patient_cases->save();
 
         $this->response['message'] = 'Patient case assigned successfully!';
