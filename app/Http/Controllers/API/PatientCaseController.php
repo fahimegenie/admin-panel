@@ -319,7 +319,7 @@ class PatientCaseController extends Controller
 
     }
 
-    public function case_assign_to(){
+    public function case_assign_to(Request $request){
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required|numeric',
