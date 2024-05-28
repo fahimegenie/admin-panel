@@ -69,6 +69,8 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
+    // protected $with = ['teams'];
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -104,6 +106,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->roles->map(function ($role) {
             return $role->permissions;
         })->collapse()->pluck('name')->unique();
+    }
+
+
+    public function teams(){
+
+        return $this->belongsToMany(Team::class, 'users_teams', 'user_id', 'team_id');
+
     }
    
     

@@ -21,7 +21,7 @@ class TeamsController extends Controller
     protected $status = 200;
     
     public function index(){
-        $teams = Team::paginate('10');
+        $teams = Team::orderBy('id', 'DESC')->get();
         if(empty($teams)){
             $this->status = 400;
             $this->response['status'] = $this->status;

@@ -10,8 +10,10 @@ use App\Models\User;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+
+class SubClientController extends Controller
 {
+    
     use ImageStorageTrait;
     
 
@@ -22,7 +24,7 @@ class UserController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::with('teams')->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        $users = User::with('teams')->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->paginate('10');
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -204,4 +206,5 @@ class UserController extends Controller
         return response()->json($this->response, $this->status);
 
     }
+
 }
