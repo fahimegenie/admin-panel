@@ -140,7 +140,7 @@ class TeamsController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $teams->delete();
+        Team::where('id', $teams->id)->delete();
 
         $this->response['message'] = 'Team deleted successfully!';
         $this->response['data'] = $teams;

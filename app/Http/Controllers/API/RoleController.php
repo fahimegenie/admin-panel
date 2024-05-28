@@ -116,7 +116,7 @@ class RoleController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);   
         }
-        $role->delete();
+        Role::where('id', $role->id)->delete();
 
         $this->response['message'] = 'Role deleted successfully!';
         $this->response['data'] = $role;

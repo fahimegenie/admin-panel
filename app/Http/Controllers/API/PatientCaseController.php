@@ -305,7 +305,7 @@ class PatientCaseController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $patient_cases->delete();
+        PatientCase::where('id', $patient_cases->id)->delete();
 
         $this->response['message'] = 'Patient case deleted successfully!';
         $this->response['data'] = $patient_cases;

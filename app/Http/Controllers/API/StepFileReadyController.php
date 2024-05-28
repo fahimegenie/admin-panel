@@ -131,7 +131,7 @@ class StepFileReadyController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $step_file_readys->delete();
+        StepFileReady::where('id', $step_file_readys->id)->delete();
 
         $this->response['message'] = 'Step file ready deleted successfully!';
         $this->response['data'] = $step_file_readys;

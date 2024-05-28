@@ -138,7 +138,7 @@ class ModificationReceivedController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $modification_receiveds->delete();
+        ModificationReceived::where('id', $modification_receiveds->id)->delete();
 
         $this->response['message'] = 'Modification received deleted successfully!';
         $this->response['data'] = $modification_receiveds;

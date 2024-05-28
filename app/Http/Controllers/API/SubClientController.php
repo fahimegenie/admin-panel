@@ -172,7 +172,7 @@ class SubClientController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $user->delete();
+        User::where('id', $user->id)->delete();
 
         $this->response['message'] = 'User deleted successfully!';
         $this->response['data'] = $user;

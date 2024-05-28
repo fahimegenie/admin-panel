@@ -138,7 +138,7 @@ class PendingApprovalController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $pending_approvals->delete();
+        PendingApproval::where('id', $pending_approvals->id)->delete();
 
         $this->response['message'] = 'Pending approvals deleted successfully!';
         $this->response['data'] = $pending_approvals;

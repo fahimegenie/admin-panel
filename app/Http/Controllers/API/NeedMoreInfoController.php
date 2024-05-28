@@ -131,7 +131,7 @@ class NeedMoreInfoController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
-        $need_more_infos->delete();
+        NeedMoreInfo::where('id', $need_more_infos->id)->delete();
 
         $this->response['message'] = 'Need more info deleted successfully!';
         $this->response['data'] = $need_more_infos;

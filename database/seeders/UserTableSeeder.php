@@ -80,6 +80,7 @@ class UserTableSeeder extends Seeder
                 'teams-detail',
                 'teams-update',
                 'teams-delete',
+                'teams-assings-to-users',
             ];
 
         if(!empty($permissions)){

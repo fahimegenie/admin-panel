@@ -116,7 +116,7 @@ class PermissionController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);   
         }
-        $permission->delete();
+        Permission::where('id', $permission->id)->delete();
 
         $this->response['message'] = 'Permission deleted successfully!';
         $this->response['data'] = $permission;
