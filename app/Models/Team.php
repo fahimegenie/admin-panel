@@ -24,6 +24,6 @@ class Team extends Model
     protected $with = ['users'];
 
     public function users(){
-        return $this->belongsTo(User::class, 'team_id', 'id');
+        return $this->belongsTo(User::class, 'id', 'team_id');
     }
 }
