@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Team;
+use App\Models\User;
 
 
 class TeamsController extends Controller
@@ -173,8 +174,8 @@ class TeamsController extends Controller
         }
 
         if(isset($request->user_id) && !empty($request->user_id)){
-            foreach ($$request->user_id as $key => $value) {
-                $user::findOrFail($value);
+            foreach ($request->user_id as $key => $value) {
+                $user = User::findOrFail($value);
                 if(!empty($user)){
                     $user->team_id = $request->team_id;
                     $user->Save();
