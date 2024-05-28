@@ -32,6 +32,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('created_by')->default(0);
             $table->datetime('last_login')->nullable();
             $table->string('clinic_name')->nullable();
+            $table->unsignedBigInteger('team_id')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

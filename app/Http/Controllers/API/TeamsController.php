@@ -173,7 +173,13 @@ class TeamsController extends Controller
         }
 
         if(isset($request->user_id) && !empty($request->user_id)){
-            $teams->users()->sync($request->user_id);
+            foreach ($$request->user_id as $key => $value) {
+                $user::findOrFail($value);
+                if(!empty($user)){
+                    $user->team_id = $request->team_id;
+                    $user->Save();
+                }
+            }
         }
         $teams = Team::findOrFail($request->team_id);
         

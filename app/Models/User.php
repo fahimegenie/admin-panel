@@ -40,6 +40,7 @@ class User extends Authenticatable implements JWTSubject
         'client_id',
         'sub_client_id',
         'clinic_name',
+        'team_id',
 
     ];
 
@@ -111,9 +112,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function teams(){
 
-        return $this->belongsToMany(Team::class, 'users_teams', 'user_id', 'team_id');
+        return $this->belongsTo(Team::class, 'team_id', 'id');
 
     }
    
     
 }
+
+
+
+// ALTER TABLE `users` ADD `team_id` INT(11) NOT NULL DEFAULT '0' AFTER `remember_token`;
