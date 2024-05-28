@@ -115,7 +115,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('case_plans', 'index');
         Route::post('case_plans/store', 'store');
         Route::get('case_plans/{guid}', 'detail');
-        Route::post('case_plans/update/{guid}', 'update');
+        Route::post('case_plans/update/{guid?}', 'update');
         Route::delete('case_plans/{guid}', 'destroy');
     });
 
