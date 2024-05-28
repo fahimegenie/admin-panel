@@ -168,7 +168,12 @@ class PatientCaseController extends Controller
 
     public function detail($guid){
 
-        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
+        $patient_cases = PatientCase::when($this->role_name, function($q){
+                                    if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
+                                        $q->where('created_by', auth()->user()->id);
+                                    }
+                                })->where('guid', $guid)->first();
+
         
         if(empty($patient_cases)){
             $this->status = 400;
