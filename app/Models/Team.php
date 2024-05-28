@@ -24,6 +24,6 @@ class Team extends Model
     protected $with = ['users'];
 
     public function users(){
-        return $this->hasMany(User::class, 'id', 'team_id');
+        return $this->hasMany(User::class, 'team_id', 'id');
     }
 }
