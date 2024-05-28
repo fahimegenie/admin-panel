@@ -10,6 +10,7 @@ use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\StepFileReadyController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\TeamsController;
+use App\Http\Controllers\API\CasePlansController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('users/store', 'store');
         Route::get('users/{guid}', 'detail');
         Route::post('users/update/{guid}', 'update');
-        Route::delete('users/{guid}', 'delete');
+        Route::delete('users/{guid}', 'destroy');
         Route::get('user/treatment-planners', 'treatmentPlanners');
         Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck');
         
@@ -44,14 +45,14 @@ Route::middleware('auth:api')->group(function () {
         Route::post('roles/store', 'store');
         Route::get('roles/{guid}', 'detail');
         Route::post('roles/update/{guid}', 'update');
-        Route::delete('roles/{guid}', 'delete');
+        Route::delete('roles/{guid}', 'destroy');
     });
     Route::controller(PermissionController::class)->group(function () {
         Route::get('permissions', 'index');
         Route::post('permissions/store', 'store');
         Route::get('permissions/{guid}', 'detail');
         Route::post('permissions/update/{guid}', 'update');
-        Route::delete('permissions/{guid}', 'delete');
+        Route::delete('permissions/{guid}', 'destroy');
     });
 
     Route::controller(PatientCaseController::class)->group(function () {
@@ -59,7 +60,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('patient_cases/store', 'store');
         Route::get('patient_cases/{guid}', 'detail');
         Route::post('patient_cases/update/{guid}', 'update');
-        Route::delete('patient_cases/{guid}', 'delete');
+        Route::delete('patient_cases/{guid}', 'destroy');
         Route::post('patient_cases/case_assign_to', 'case_assign_to');
     });
 
@@ -68,7 +69,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('pending_approvals/store', 'store');
         Route::get('pending_approvals/{guid}', 'detail');
         Route::post('pending_approvals/update/{guid}', 'update');
-        Route::delete('pending_approvals/{guid}', 'delete');
+        Route::delete('pending_approvals/{guid}', 'destroy');
     });
 
     Route::controller(ModificationReceivedController::class)->group(function () {
@@ -76,7 +77,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('modification_receiveds/store', 'store');
         Route::get('modification_receiveds/{guid}', 'detail');
         Route::post('modification_receiveds/update/{guid}', 'update');
-        Route::delete('modification_receiveds/{guid}', 'delete');
+        Route::delete('modification_receiveds/{guid}', 'destroy');
     });
 
     Route::controller(NeedMoreInfoController::class)->group(function () {
@@ -84,7 +85,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('need_more_infos/store', 'store');
         Route::get('need_more_infos/{guid}', 'detail');
         Route::post('need_more_infos/update/{guid}', 'update');
-        Route::delete('need_more_infos/{guid}', 'delete');
+        Route::delete('need_more_infos/{guid}', 'destroy');
     });
 
     Route::controller(StepFileReadyController::class)->group(function () {
@@ -92,7 +93,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('step_file_readys/store', 'store');
         Route::get('step_file_readys/{guid}', 'detail');
         Route::post('step_file_readys/update/{guid}', 'update');
-        Route::delete('step_file_readys/{guid}', 'delete');
+        Route::delete('step_file_readys/{guid}', 'destroy');
     });
 
     Route::controller(TeamsController::class)->group(function () {
@@ -100,10 +101,20 @@ Route::middleware('auth:api')->group(function () {
         Route::post('teams/store', 'store');
         Route::get('teams/{guid}', 'detail');
         Route::post('teams/update/{guid}', 'update');
-        Route::delete('teams/{guid}', 'delete');
+        Route::delete('teams/{guid}', 'destroy');
         Route::post('team/assign-teams', 'assignUserToTeams');
 
     });
+
+    Route::controller(CasePlansController::class)->group(function () {
+        Route::get('case_plans', 'index');
+        Route::post('case_plans/store', 'store');
+        Route::get('case_plans/{guid}', 'detail');
+        Route::post('case_plans/update/{guid}', 'update');
+        Route::delete('case_plans/{guid}', 'destroy');
+    });
+
+    
 
 
     

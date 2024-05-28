@@ -35,7 +35,7 @@ class PatientCase extends Model
                 'created_by_admin'
         ];
 
-    protected $with = ['images', 'xrays', 'created_user'];
+    protected $with = ['images', 'xrays', 'created_user', 'case_plans'];
 
     public function images(){
         return $this->hasMany(Image::class, 'p_case_id');
@@ -47,6 +47,10 @@ class PatientCase extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
     
+    public function case_plans(){
+        return $this->belongsTo(CasePlan::class, 'id', 'p_case_id');
+    }
+
 }
 
 
