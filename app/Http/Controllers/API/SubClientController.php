@@ -24,7 +24,7 @@ class SubClientController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::with('teams')->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->paginate('10');
+        $users = User::with('teams')->where('id', '<>', auth()->user()->id)->where('client_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -68,6 +68,7 @@ class SubClientController extends Controller
         $user->last_name = $request->last_name;
         $user->username = $request->first_name.' '.$request->last_name;
         $user->mobile_number = $request->mobile_number;
+        $user->client_id = auth()->user()->id;
         $image_name = '';
         if($request->hasFile('profile_pic')){
             $picture = $request->file('profile_pic');
@@ -176,32 +177,6 @@ class SubClientController extends Controller
 
         $this->response['message'] = 'User deleted successfully!';
         $this->response['data'] = $user;
-        $this->response['status'] = $this->status;
-        return response()->json($this->response, $this->status);
-
-    }
-
-
-    // get treatment planners users
-    public function treatmentPlanners(){
-        $users = User::whereHas("roles", function($q) {
-                                $q->whereIn('name', ['treatment_planner']);
-                            })->get();
-
-        $this->response['message'] = 'Treatment planners successfully!';
-        $this->response['data'] = $users;
-        $this->response['status'] = $this->status;
-        return response()->json($this->response, $this->status);
-
-    }
-    // get treatment planners users
-    public function treatmentPlannersQualityCheck(){
-        $users = User::whereHas("roles", function($q) {
-                                $q->whereIn('name', ['treatment_planner', 'quality_check']);
-                            })->get();
-
-        $this->response['message'] = 'Treatment planners successfully!';
-        $this->response['data'] = $users;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
 

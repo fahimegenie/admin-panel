@@ -11,6 +11,7 @@ use App\Http\Controllers\API\StepFileReadyController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\TeamsController;
 use App\Http\Controllers\API\CasePlansController;
+use App\Http\Controllers\API\SubClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,11 +34,15 @@ Route::middleware('auth:api')->group(function () {
         Route::post('users/update/{guid}', 'update');
         Route::delete('users/{guid}', 'destroy');
         Route::get('user/treatment-planners', 'treatmentPlanners');
-        Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck');
-        
+        Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck');    
+    });
 
-
-        
+    Route::controller(SubClientController::class)->group(function () {
+        Route::get('sub_clients', 'index');
+        Route::post('sub_clients/store', 'store');
+        Route::get('sub_clients/{guid}', 'detail');
+        Route::post('sub_clients/update/{guid}', 'update');
+        Route::delete('sub_clients/{guid}', 'destroy');
     });
 
     Route::controller(RoleController::class)->group(function () {
