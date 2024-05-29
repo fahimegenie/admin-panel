@@ -31,9 +31,9 @@ class PatientCaseController extends Controller
     
     public function index(){
         $patient_cases = [];
-            $patient_cases = PatientCase::when($this->role_name, function($q){
+            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans'])->when($this->role_name, function($q){
                                     if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
-                                        $q->where('created_by', auth()->user()->id);
+                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
                                 })->paginate('10');
         
@@ -168,9 +168,9 @@ class PatientCaseController extends Controller
 
     public function detail($guid){
 
-        $patient_cases = PatientCase::when($this->role_name, function($q){
+        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans'])->when($this->role_name, function($q){
                                     if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
-                                        $q->where('created_by', auth()->user()->id);
+                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
                                 })->where('guid', $guid)->first();
 
