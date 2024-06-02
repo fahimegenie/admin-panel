@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modification_receiveds', function (Blueprint $table) {
+        Schema::create('cases_status_users_comments', function (Blueprint $table) {
             $table->id();
             $table->uuid('guid');
-            $table->unsignedBigInteger('case_plan_id');
-            $table->text('simulation_link_url');
-            $table->text('ipr_chart');
-            $table->longText('comments');
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('pcsu_id');
+            $table->longText('comments')->nullable();
+            $table->unsignedTinyInteger('case_status');
             $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modification_receiveds');
+        Schema::dropIfExists('cases_status_users_comments');
     }
 };

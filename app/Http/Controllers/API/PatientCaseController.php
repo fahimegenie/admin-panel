@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CasesStatusUser;
+use App\Models\CasesStatusUsersComment;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Traits\ImageStorageTrait;
 use App\Models\PatientCase;
 use App\Models\Xray;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class PatientCaseController extends Controller
 {
@@ -31,7 +34,7 @@ class PatientCaseController extends Controller
     
     public function index(){
         $patient_cases = [];
-            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans'])->when($this->role_name, function($q){
+            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments'])->when($this->role_name, function($q){
                                     if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
@@ -334,6 +337,7 @@ class PatientCaseController extends Controller
             $this->response['message'] = $validator->messages()->first();
             return response()->json($this->response, $this->status); 
         }
+        $user = User::findOrFail($request->user_id);
         
         $patient_cases = PatientCase::findOrFail($request->p_case_id);
         if(empty($patient_cases)){
@@ -345,7 +349,122 @@ class PatientCaseController extends Controller
         }
         $patient_cases->assign_to = $request->user_id;
         $patient_cases->status = 2;
+
+        if(!empty($user) && !empty($user->roles) && !empty($user->roles[0]) && $user->roles[0]['name'] && $user->roles[0]['name'] == 'treatment_planner'){
+            $patient_cases->planner_id = $user->id;
+        }
+        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
+            $patient_cases->planner_id = auth()->user()->id;
+        }
         $patient_cases->save();
+
+        $this->response['message'] = 'Patient case assigned successfully!';
+        $this->response['data'] = $patient_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
+    }
+
+    public function rejected_by_quality_check(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'p_case_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+
+        ]);
+  
+        if($validator->fails()){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
+        }
+        $user = User::findOrFail($request->user_id);
+        
+        $patient_cases = PatientCase::findOrFail($request->p_case_id);
+        if(empty($patient_cases)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);     
+        }
+        $patient_cases->assign_to = $request->user_id;
+        $patient_cases->status = 2;
+
+        if(!empty($user) && !empty($user->roles) && !empty($user->roles[0]) && $user->roles[0]['name'] && $user->roles[0]['name'] == 'treatment_planner'){
+            $patient_cases->planner_id = $user->id;
+        }
+        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
+            $patient_cases->planner_id = auth()->user()->id;
+        }
+        $patient_cases->save();
+
+        $this->response['message'] = 'Patient case assigned successfully!';
+        $this->response['data'] = $patient_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+        
+    }
+
+    // 
+    public function update_patient_case_status(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'p_case_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'case_status' => 'required|numeric'
+
+        ]);
+  
+        if($validator->fails()){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
+        }
+        $user = User::findOrFail($request->user_id);
+        
+        $patient_cases = PatientCase::findOrFail($request->p_case_id);
+        if(empty($patient_cases)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);     
+        }
+        $patient_cases->assign_to = $request->user_id;
+        $patient_cases->status = $request->case_status;
+
+        if(!empty($user) && !empty($user->roles) && !empty($user->roles[0]) && $user->roles[0]['name'] && $user->roles[0]['name'] == 'treatment_planner'){
+            $patient_cases->planner_id = $user->id;
+        }
+        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
+            $patient_cases->planner_id = auth()->user()->id;
+        }
+        $patient_cases->save();
+
+
+        $cases_status_user = CasesStatusUser::where('p_case_id', $request->p_case_id)->where('user_id', $request->user_id)->where('case_status', $request->case_status)->first();
+        if(!$cases_status_user){
+            $cases_status_user = new CasesStatusUser();
+        }
+        $cases_status_user->p_case_id = $request->p_case_id;
+        $cases_status_user->user_id = $request->user_id;
+        $cases_status_user->case_status = $request->case_status;
+        $cases_status_user->save();
+        
+        $cases_status_user_id = $cases_status_user->id;
+
+        if(isset($request->comments) && !empty($request->comments)){
+            $cases_status_users_comment = new CasesStatusUsersComment();
+            $cases_status_users_comment->pcsu_id = $cases_status_user_id;
+            $cases_status_users_comment->comments = $request->comments;
+            $cases_status_users_comment->case_status = $request->case_status;
+            $cases_status_users_comment->save();
+        }
 
         $this->response['message'] = 'Patient case assigned successfully!';
         $this->response['data'] = $patient_cases;

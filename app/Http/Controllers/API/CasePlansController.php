@@ -70,26 +70,30 @@ class CasePlansController extends Controller
 
         $case_plans = [];
         if(isset($request->case_plans) && !empty($request->case_plans)){
-            $case_plans = json_decode($request->case_plans, true);
+            $case_plans = $request->case_plans;
         }
         if(!empty($case_plans)){
             foreach ($case_plans as $key => $value) {
-                $case_plans = new CasePlan();
-                $case_plans->p_case_id = $request->p_case_id;
-                $case_plans->text_notes = $value['text_notes'];
-                $case_plans->simulation_link_url = $value['simulation_link_url'];
-                $case_plans->created_by = auth()->user()->id;
-                $ipr = '';
-                if(is_file($value['ipr_chart'])){
-                    $picture = $value->file('ipr_chart');
-                    $folder = 'uploads/pdf'; 
-                    $ipr = $this->storeImage($picture, $folder);
+                if(!empty($value)){
+                    $case_plans = new CasePlan();
+                    $case_plans->p_case_id = $request->p_case_id;
+                    $case_plans->text_notes = $value['text_notes'];
+                    $case_plans->simulation_link_url = $value['simulation_link_url'];
+                    $case_plans->created_by = auth()->user()->id;
+                    $ipr = '';
+                    $ipr_charts = $value['ipr_chart'];
+                    if(is_file($ipr_charts)){
+                        $picture = $value->file('ipr_chart');
+                        $folder = 'uploads/pdf'; 
+                        $ipr = $this->storeImage($picture, $folder);
+                    }
+                    dd($ipr);
+                    $case_plans->ipr_chart = $ipr;
+                    if(isset($value->status)){
+                        $case_plans->status = $value->status;
+                    }
+                    $case_plans->save();
                 }
-                $case_plans->ipr_chart = $ipr;
-                if(isset($value->status)){
-                    $case_plans->status = $value->status;
-                }
-                $case_plans->save();
             }
         }
         

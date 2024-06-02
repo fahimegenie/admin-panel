@@ -67,6 +67,8 @@ Route::middleware('auth:api')->group(function () {
         Route::post('patient_cases/update/{guid}', 'update');
         Route::delete('patient_cases/{guid}', 'destroy');
         Route::post('patient_cases/case_assign_to', 'case_assign_to');
+        Route::post('patient_cases/update_patient_case_status', 'update_patient_case_status');
+    
     });
 
     Route::controller(PendingApprovalController::class)->group(function () {

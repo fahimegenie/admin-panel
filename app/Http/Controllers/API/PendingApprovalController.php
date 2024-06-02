@@ -40,8 +40,6 @@ class PendingApprovalController extends Controller
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
-            'simulation_link_url' => 'required',
-            'ipr_chart' => 'required',
             'comments' => 'required',
             'status' => 'required',
         ]);

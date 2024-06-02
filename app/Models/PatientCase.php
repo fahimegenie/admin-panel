@@ -32,7 +32,9 @@ class PatientCase extends Model
                 'created_by',
                 'status',
                 'assign_to',
-                'created_by_admin'
+                'created_by_admin',
+                'planner_id',
+                'qa_id'
         ];
 
 
@@ -52,6 +54,10 @@ class PatientCase extends Model
     }
     public function users(){
         return $this->belongsTo(User::class, 'assign_to', 'id');
+    }
+
+    public function case_status_users(){
+        return $this->belongsTo(CasesStatusUser::class, 'id', 'p_case_id');
     }
 
 }

@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ModificationReceived;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ImageStorageTrait;
+
 
 class ModificationReceivedController extends Controller
 {
     
+    use ImageStorageTrait;
+
     /**
      * @var array
      */
@@ -39,9 +43,7 @@ class ModificationReceivedController extends Controller
     public function store(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'p_case_id' => 'required',
-            'simulation_link_url' => 'required',
-            'ipr_chart' => 'required',
+            'case_plan_id' => 'required',
             'comments' => 'required',
             'status' => 'required',
         ]);
@@ -55,8 +57,21 @@ class ModificationReceivedController extends Controller
         }
         
         $modification_receiveds = new ModificationReceived();
-        $modification_receiveds->p_case_id = $request->p_case_id;
-        $modification_receiveds->simulation_link_url = $request->simulation_link_url;
+        $modification_receiveds->case_plan_id = $request->case_plan_id;
+        $simulation_link_url = '';
+        if(isset($request->simulation_link_url) && !empty($request->simulation_link_url)){
+            $simulation_link_url = $request->simulation_link_url;
+        }
+
+        $ipr_chart = '';
+        if($request->hasFile('ipr_chart')){
+            $picture = $request->file('ipr_chart');
+            $folder = 'uploads/pdf'; 
+            $ipr_chart = $this->storeImage($picture, $folder);
+        }
+        $modification_receiveds->$ipr_chart = $ipr_chart;
+
+        $modification_receiveds->simulation_link_url = $simulation_link_url;
         $modification_receiveds->ipr_chart = $request->ipr_chart;
         $modification_receiveds->comments = $request->comments;
         $modification_receiveds->status = $request->status;
@@ -90,9 +105,7 @@ class ModificationReceivedController extends Controller
     public function update(Request $request, $guid){
 
         $validator = Validator::make($request->all(), [
-            'p_case_id' => 'required',
-            'simulation_link_url' => 'required',
-            'ipr_chart' => 'required',
+            'case_plan_id' => 'required',
             'comments' => 'required',
             'status' => 'required',
         ]);
@@ -114,9 +127,18 @@ class ModificationReceivedController extends Controller
             return response()->json($this->response, $this->status);     
         }
         
-        $modification_receiveds->p_case_id = $request->p_case_id;
-        $modification_receiveds->simulation_link_url = $request->simulation_link_url;
-        $modification_receiveds->ipr_chart = $request->ipr_chart;
+        $modification_receiveds->case_plan_id = $request->case_plan_id;
+
+        if(isset($request->simulation_link_url) && !empty($request->simulation_link_url)){
+            $modification_receiveds->simulation_link_url = $request->simulation_link_url;
+        }
+        if($request->hasFile('ipr_chart')){
+            $ipr_chart = '';
+            $picture = $request->file('ipr_chart');
+            $folder = 'uploads/pdf'; 
+            $ipr_chart = $this->storeImage($picture, $folder);
+            $modification_receiveds->$ipr_chart = $ipr_chart;
+        }
         $modification_receiveds->comments = $request->comments;
         $modification_receiveds->status = $request->status;
         $modification_receiveds->created_by = auth()->user()->id;
