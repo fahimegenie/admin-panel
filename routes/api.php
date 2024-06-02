@@ -110,6 +110,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('teams/update/{guid}', 'update');
         Route::delete('teams/{guid}', 'destroy');
         Route::post('team/assign-teams', 'assignUserToTeams');
+        Route::get('team/get-teams-detail/{team_id}', 'get_teams_detail');
+
+        
 
     });
 

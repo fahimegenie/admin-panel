@@ -427,6 +427,7 @@ class PatientCaseController extends Controller
         }
         $user = User::findOrFail($request->user_id);
         
+        
         $patient_cases = PatientCase::findOrFail($request->p_case_id);
         if(empty($patient_cases)){
             $this->status = 400;

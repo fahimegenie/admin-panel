@@ -191,4 +191,14 @@ class TeamsController extends Controller
         return response()->json($this->response, $this->status);
     }
 
+    public function get_teams_detail($team_id){
+
+        $teams = Team::where('id', $team_id)->with('users')->first();
+
+        $this->response['message'] = 'Team Create successfully!';
+        $this->response['data'] = $teams;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    }
+
 }
