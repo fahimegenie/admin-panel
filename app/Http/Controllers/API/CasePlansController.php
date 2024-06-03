@@ -82,11 +82,11 @@ class CasePlansController extends Controller
                     $case_plans->created_by = auth()->user()->id;
                     $ipr = '';
                     $ipr_charts = $value['ipr_chart'];
-                    if($value->file('ipr_chart')){
-                        $picture = $value->file('ipr_chart');
-                        $folder = 'uploads/pdf'; 
-                        $ipr = $this->storeImage($picture, $folder);
-                    }
+                    // if($value->file('ipr_chart')){
+                    //     $picture = $value->file('ipr_chart');
+                    //     $folder = 'uploads/pdf'; 
+                    //     $ipr = $this->storeImage($picture, $folder);
+                    // }
                     $case_plans->ipr_chart = $ipr;
                     if(isset($value->status)){
                         $case_plans->status = $value->status;
