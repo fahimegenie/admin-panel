@@ -82,7 +82,7 @@ class CasePlansController extends Controller
                     $case_plans->created_by = auth()->user()->id;
                     $ipr = '';
                     $ipr_charts = $value['ipr_chart'];
-                    if(is_file($ipr_charts)){
+                    if($value->file('ipr_chart')){
                         $picture = $value->file('ipr_chart');
                         $folder = 'uploads/pdf'; 
                         $ipr = $this->storeImage($picture, $folder);
