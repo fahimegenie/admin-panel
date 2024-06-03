@@ -473,4 +473,26 @@ class PatientCaseController extends Controller
         return response()->json($this->response, $this->status);
 
     }
+
+    // 
+    public function getCasesByStatus($status=1){
+        $patient_cases = [];
+            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments'])->when($this->role_name, function($q){
+                                    if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
+                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
+                                    }
+                                })->where('status', $status)->paginate('10');
+        
+        if(empty($patient_cases)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
+        }
+        $this->response['message'] = 'Patient cases list!';
+        $this->response['data'] = $patient_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    }
 }

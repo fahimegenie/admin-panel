@@ -68,6 +68,9 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('patient_cases/{guid}', 'destroy');
         Route::post('patient_cases/case_assign_to', 'case_assign_to');
         Route::post('patient_cases/update_patient_case_status', 'update_patient_case_status');
+
+        // 
+        Route::get('patient_cases/by_case_status/{status}', 'getCasesByStatus');
     
     });
 
