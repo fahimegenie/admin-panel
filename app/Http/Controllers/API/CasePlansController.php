@@ -73,9 +73,9 @@ class CasePlansController extends Controller
             $case_plans = $request->case_plans;
         }
         if(!empty($case_plans)){
-=            foreach ($case_plans as $key => $value) {
+            foreach ($case_plans as $key => $value) {
                 if(!empty($value)){
-=                    $case_plans = new CasePlan();
+                   $case_plans = new CasePlan();
                     $case_plans->p_case_id = $request->p_case_id;
                     $case_plans->text_notes = $value['text_notes'];
                     $case_plans->simulation_link_url = $value['simulation_link_url'];
