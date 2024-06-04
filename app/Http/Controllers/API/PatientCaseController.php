@@ -175,9 +175,14 @@ class PatientCaseController extends Controller
     public function detail($guid){
 
         $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'planner', 'qa'])->when($this->role_name, function($q){
-                                    if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
+                                    if($this->role_name == 'post_processing'){
+                                        $q->whereIn('status', [8, 9]);
+                                    }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
+                                    // if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
+                                    //     $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
+                                    // }
                                 })->where('guid', $guid)->first();
 
         
