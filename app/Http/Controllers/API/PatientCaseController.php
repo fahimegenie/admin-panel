@@ -350,11 +350,11 @@ class PatientCaseController extends Controller
         $patient_cases->assign_to = $request->user_id;
         $patient_cases->status = 2;
 
-        if(!empty($user) && !empty($user->roles) && !empty($user->roles[0]) && $user->roles[0]['name'] && $user->roles[0]['name'] == 'treatment_planner'){
-            $patient_cases->planner_id = $user->id;
+        if(!empty($user) && !empty($user->roles) && !empty($user->roles[0]) && $user->roles[0]['name'] && $user->roles[0]['name'] == 'quality_check'){
+            $patient_cases->qa_id = $user->id;
         }
-        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
-            $patient_cases->qa_id = auth()->user()->id;
+        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'treatment_planner'){
+            $patient_cases->planner_id = auth()->user()->id;
         }
         $patient_cases->save();
 
