@@ -171,7 +171,7 @@ class PatientCaseController extends Controller
 
     public function detail($guid){
 
-        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans'])->when($this->role_name, function($q){
+        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'planner', 'qa'])->when($this->role_name, function($q){
                                     if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
@@ -397,7 +397,7 @@ class PatientCaseController extends Controller
             $patient_cases->planner_id = $user->id;
         }
         if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
-            $patient_cases->planner_id = auth()->user()->id;
+            $patient_cases->qa_id = auth()->user()->id;
         }
         $patient_cases->save();
 

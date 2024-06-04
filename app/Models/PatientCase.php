@@ -60,6 +60,13 @@ class PatientCase extends Model
         return $this->belongsTo(CasesStatusUser::class, 'id', 'p_case_id');
     }
 
+    public function planner(){
+        return $this->belongsTo(User::class, 'planner_id', 'id');
+    }
+    public function qa(){
+        return $this->belongsTo(User::class, 'qa_id', 'id');
+    }
+
 }
 
 
