@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\PatientCase;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class DashboardController extends Controller
 
         $patient_cases = [];
             $patient_cases = User::withCount(['created_user', 'users', 'planner', 'qa', 'post_processing'])->where('id', auth()->user()->id)->first();
-        
+            $cases_count = PatientCase::count();
+        $patient_cases['cases_count'] = $cases_count;
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
