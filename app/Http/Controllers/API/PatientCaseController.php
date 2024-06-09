@@ -34,7 +34,7 @@ class PatientCaseController extends Controller
     
     public function index(){
         $patient_cases = [];
-            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa'])->when($this->role_name, function($q){
+            $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->when($this->role_name, function($q){
                                     if($this->role_name == 'post_processing'){
                                         $q->whereIn('status', [8, 9]);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
@@ -464,6 +464,23 @@ class PatientCaseController extends Controller
         if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'quality_check'){
             $patient_cases->qa_id = auth()->user()->id;
         }
+
+        if(!empty(auth()->user()->roles) && !empty(auth()->user()->roles) && !empty(auth()->user()->roles[0]) && auth()->user()->roles[0]['name'] && auth()->user()->roles[0]['name'] == 'post_processing'){
+            $patient_cases->post_processing_id = auth()->user()->id;
+        }
+
+        if(isset($request->stl_file_by_post_processing) && !empty($request->stl_file_by_post_processing)){
+            if($request->hasFile('stl_file_by_post_processing')){
+                $file_name = '';
+                $picture = $request->file('stl_file_by_post_processing');
+                $folder = 'uploads/stl'; 
+                $file_name = $this->storeImage($picture, $folder);
+                $patient_cases->stl_file_by_post_processing = $file_name;
+            }
+
+        }
+        
+        
         $patient_cases->save();
 
 

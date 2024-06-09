@@ -34,6 +34,7 @@ return new class extends Migration
             $table->unsignedBigInteger('planner_id')->default(0);
             $table->unsignedBigInteger('qa_id')->default(0);
             $table->unsignedBigInteger('is_priority')->default(0);
+            $table->unsignedBigInteger('post_processing_id')->default(0);
             $table->timestamps();
         });
     }

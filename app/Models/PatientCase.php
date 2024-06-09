@@ -35,7 +35,9 @@ class PatientCase extends Model
                 'created_by_admin',
                 'planner_id',
                 'qa_id',
-                'is_priority'
+                'is_priority',
+                'post_processing_id',
+                'stl_file_by_post_processing'
         ];
 
 
@@ -66,6 +68,9 @@ class PatientCase extends Model
     }
     public function qa(){
         return $this->belongsTo(User::class, 'qa_id', 'id');
+    }
+    public function post_processing(){
+        return $this->belongsTo(User::class, 'post_processing_id', 'id');
     }
 
 }
