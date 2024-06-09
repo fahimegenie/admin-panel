@@ -21,6 +21,16 @@ class AuthController extends ApiController
      */
     protected $response = [];
     protected $status = 200;
+    protected $user_id = 0;
+    protected $role_name = '';
+    public function __construct(){
+        if(!empty(auth()->user())){
+            $this->user_id = auth()->user()->id;
+            $this->role_name = auth()->user()->role_name;
+        }
+    }
+
+
 
     /**
      * Register a User.
@@ -170,6 +180,12 @@ class AuthController extends ApiController
 
 
         $users = auth()->user();
+
+        if($this->role_name == 'super_admin' && isset($request->user_id)){
+            $user = User::findOrFail();
+        }
+
+
         if ($users) {
 
             // The passwords matches

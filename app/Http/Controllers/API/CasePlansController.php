@@ -155,7 +155,7 @@ class CasePlansController extends Controller
         $case_plans->text_notes = $request->text_notes;
         $case_plans->simulation_link_url = $request->simulation_link_url;
         
-        if(isset($request->ipr_chart) && !empty($request->ipr_chart) && isset($request->ipr_chart) && !empty($ipr_chart_files)){
+        if(isset($request->ipr_chart) && !empty($request->ipr_chart)){
             $file = $request->ipr_chart;
             if(is_file($file)){
                 $picture = $file;
