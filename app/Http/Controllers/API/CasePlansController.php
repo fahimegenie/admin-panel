@@ -143,7 +143,7 @@ class CasePlansController extends Controller
             return response()->json($this->response, $this->status); 
         }
 
-        $case_plans = CasePlan::where('case_id', $request->case_id)->where('guid', $guid)->first();
+        $case_plans = CasePlan::where('p_case_id', $request->p_case_id)->where('guid', $guid)->first();
         if(empty($case_plans)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -156,13 +156,12 @@ class CasePlansController extends Controller
         $case_plans->simulation_link_url = $request->simulation_link_url;
         
         if(isset($request->ipr_chart) && !empty($request->ipr_chart) && isset($request->ipr_chart) && !empty($ipr_chart_files)){
-                $file = $request->ipr_chart;
-                if(is_file($file)){
-                    $picture = $file;
-                    $folder = 'uploads/pdf'; 
-                    $ipr = $this->storeImage($picture, $folder);
-                    $case_plans->ipr_chart = $ipr;
-                }
+            $file = $request->ipr_chart;
+            if(is_file($file)){
+                $picture = $file;
+                $folder = 'uploads/pdf'; 
+                $ipr = $this->storeImage($picture, $folder);
+                $case_plans->ipr_chart = $ipr;
             }
         }
 
