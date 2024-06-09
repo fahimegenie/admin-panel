@@ -40,7 +40,7 @@ class PatientCaseController extends Controller
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
-                                })
+                                })->orderBy('is_priority', 'DESC')
                                 ->paginate('10');
         
         if(empty($patient_cases)){
@@ -76,7 +76,8 @@ class PatientCaseController extends Controller
             'treatment_plan' => 'required',
             'stl_upper_file' => 'required',
             'stl_lower_file' => 'required',
-            'stl_byte_scan_file' => 'required'
+            'stl_byte_scan_file' => 'required',
+            'is_priority' => 'nullable|numeric',
         ]);
   
         if($validator->fails()){
@@ -98,6 +99,9 @@ class PatientCaseController extends Controller
         $patient_cases->chief_complaint = $request->chief_complaint;
         $patient_cases->treatment_plan = $request->treatment_plan;
         $patient_cases->created_by = auth()->user()->id;
+        if(isset($request->is_priority) && !empty($request->is_priority)){
+            $patient_cases->is_priority = $request->is_priority;
+        }
 
         if(isset($request->created_by_admin) && !empty($request->created_by_admin)){
             $request->created_by_admin = $request->created_by_admin;
@@ -212,6 +216,7 @@ class PatientCaseController extends Controller
             'ipr' => 'required',
             'chief_complaint' => 'required',
             'treatment_plan' => 'required',
+            'is_priority' => 'nullable|numeric',
         ]);
   
         if($validator->fails()){
@@ -246,6 +251,9 @@ class PatientCaseController extends Controller
         $stl_lower_file = $patient_cases->stl_lower_file;
         $stl_byte_scan_file = $patient_cases->stl_byte_scan_file;
         $ipr = $patient_cases->ipr;
+        if(isset($request->is_priority) && !empty($request->is_priority)){
+            $patient_cases->is_priority = $request->is_priority;
+        }
 
         if($request->hasFile('stl_upper_file')){
             $picture = $request->file('stl_upper_file');

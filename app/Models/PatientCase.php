@@ -34,7 +34,8 @@ class PatientCase extends Model
                 'assign_to',
                 'created_by_admin',
                 'planner_id',
-                'qa_id'
+                'qa_id',
+                'is_priority'
         ];
 
 

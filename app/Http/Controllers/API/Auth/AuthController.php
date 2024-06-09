@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
@@ -148,5 +149,57 @@ class AuthController extends ApiController
         $user->token_type = 'bearer';
         $user->expires_in = auth()->factory()->getTTL() * 60;
         return response()->json([$user]);
+    }
+
+
+
+    public function update_password(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required|required_with:confirm_password|same:confirm_password',
+        ]);
+    
+        if ($validator->fails()) {
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status);
+        }
+
+
+        $users = auth()->user();
+        if ($users) {
+
+            // The passwords matches
+            if (!Hash::check($request->get('old_password'), $users->password)) {
+                return response()->json(['code' => 422, 'status' => 'error', 'message' => 'Old Password is Invalid']);
+            }
+            // Old password and new password same
+            if (strcmp($request->get('old_password'), $request->password) == 0) {
+                return response()->json(['code' => 422, 'status' => 'error', 'message' => 'New Password cannot be same as your old password']);
+            }
+
+            $users->password = bcrypt($request->password);
+            $users->save();
+
+            $data['user'] = $users;
+            
+            $this->response['success'] = true;
+            $this->response['data'] = $data;
+            $this->response['message'] = 'Password update successfully';
+            $this->response['status'] = $this->status;
+            return response()->json($this->response, $this->status);
+
+        }else{
+
+            $this->response['success'] = false;
+            $this->response['data'] = [];
+            $this->response['message'] = 'Sometheing went wrong! please try again later!';
+            $this->response['status'] = $this->status;
+            return response()->json($this->response, $this->status);
+
+        }
     }
 }

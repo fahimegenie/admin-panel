@@ -31,6 +31,8 @@ Route::get('pass', function(){
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
+    Route::post('password/update', [AuthController::class, 'update_password']);
+
     Route::controller(UserController::class)->group(function () {
         Route::get('users', 'index');
         Route::post('users/store', 'store');

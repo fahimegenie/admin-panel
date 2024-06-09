@@ -33,6 +33,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by_admin')->default(0);
             $table->unsignedBigInteger('planner_id')->default(0);
             $table->unsignedBigInteger('qa_id')->default(0);
+            $table->unsignedBigInteger('is_priority')->default(0);
             $table->timestamps();
         });
     }
