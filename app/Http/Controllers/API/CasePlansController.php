@@ -142,46 +142,30 @@ class CasePlansController extends Controller
             return response()->json($this->response, $this->status); 
         }
 
-
-        // CasePlan::where('p_case_id')->delete();
-        
-        $case_plans = [];
-        if(isset($request->case_plans) && !empty($request->case_plans)){
-            $case_plans = json_decode($request->case_plans, true);
-
-            $ipr_chart_files = $request->ipr_chart_files ?? [];
+        $case_plans = CasePlan::where('case_id', $request->case_id)->where('guid', $guid)->first();
+        if(empty($case_plans)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
         }
-        if(!empty($case_plans)){
-            foreach ($case_plans as $key => $value) {
-                if(!empty($value)){
-                    if(isset($value['id']) && !empty($value['id'])){
-                        $case_plans = CasePlan::findOrFail($value['id']);
-                        if(!empty($case_plans) && !empty($case_plans)){
-                            $case_plans->p_case_id = $request->p_case_id;
-                            $case_plans->text_notes = $value['text_notes'];
-                            $case_plans->simulation_link_url = $value['simulation_link_url'];
-                            $case_plans->created_by = auth()->user()->id;
-                            $ipr = '';
-                            // save the ipr_charts files 
-                            if(isset($ipr_chart_files) && !empty($ipr_chart_files) && isset($ipr_chart_files[$key]) && !empty($ipr_chart_files[$key])){
-                                $file = $ipr_chart_files[$key];
-                                if(is_file($file)){
-                                    $picture = $file;
-                                    $folder = 'uploads/pdf'; 
-                                    $ipr = $this->storeImage($picture, $folder);
-                                }
-                            }
-                            $case_plans->ipr_chart = $ipr;
-                            if(isset($value->status)){
-                                $case_plans->status = $value->status;
-                            }
-                            $case_plans->save();
-                        }
-                    }
+
+        $case_plans->text_notes = $request->text_notes;
+        $case_plans->simulation_link_url = $request->simulation_link_url;
+        
+        if(isset($request->ipr_chart) && !empty($request->ipr_chart) && isset($request->ipr_chart) && !empty($ipr_chart_files)){
+                $file = $request->ipr_chart;
+                if(is_file($file)){
+                    $picture = $file;
+                    $folder = 'uploads/pdf'; 
+                    $ipr = $this->storeImage($picture, $folder);
+                    $case_plans->ipr_chart = $ipr;
                 }
             }
         }
 
+        $case_plans->save();
     
         $this->response['message'] = 'Case plan updated successfully!';
         $this->response['data'] = $case_plans;
