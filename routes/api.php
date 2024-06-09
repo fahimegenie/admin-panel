@@ -11,6 +11,7 @@ use App\Http\Controllers\API\StepFileReadyController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\TeamsController;
 use App\Http\Controllers\API\CasePlansController;
+use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\SubClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::post('password/update', [AuthController::class, 'update_password']);
+    Route::get('admin/dashboard', [DashboardController::class, 'adminDashboard']);
 
     Route::controller(UserController::class)->group(function () {
         Route::get('users', 'index');

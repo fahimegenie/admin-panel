@@ -115,6 +115,22 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Team::class, 'team_id', 'id');
 
     }
+
+    public function created_user(){
+        return $this->belongsTo(PatientCase::class, 'id', 'created_by');
+    }
+    public function users(){
+        return $this->belongsTo(PatientCase::class, 'id', 'assign_to');
+    }
+    public function planner(){
+        return $this->belongsTo(PatientCase::class, 'id', 'planner_id');
+    }
+    public function qa(){
+        return $this->belongsTo(PatientCase::class, 'id', 'qa_id');
+    }
+    public function post_processing(){
+        return $this->belongsTo(PatientCase::class, 'id', 'post_processing_id');
+    }
    
     
 }
