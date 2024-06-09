@@ -131,7 +131,8 @@ class CasePlansController extends Controller
 
         $validator = Validator::make($request->all(), [
             'p_case_id' => 'required',
-            'case_plans' => 'required'
+            'text_notes' => 'required',
+            'simulation_link_url' => 'required',
         ]);
   
         if($validator->fails()){
