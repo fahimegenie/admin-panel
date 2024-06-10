@@ -36,7 +36,7 @@ class PatientCaseController extends Controller
         $patient_cases = [];
             $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->when($this->role_name, function($q){
                                     if($this->role_name == 'post_processing'){
-                                        $q->whereIn('status', [8, 9]);
+                                        $q->whereIn('status', [8, 9, 10]);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
