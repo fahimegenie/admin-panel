@@ -29,8 +29,6 @@ class DashboardController extends Controller
         // $startWeek = Carbon::now()->subWeek()->startOfWeek(); // 30 May 2024
         // $endWeek   = Carbon::now()->subWeek()->endOfWeek();  // 5 June 2024
 
-        // $orders    = Order::query()->whereBetween('created_at',[ $startWeek,$endWeek ])->get();
-
 
         $patient_cases = [];
         $patient_cases = User::withCount(['created_user', 'users', 'planner', 'qa', 'post_processing'])->where('id', auth()->user()->id)->first();
