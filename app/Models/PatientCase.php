@@ -37,7 +37,12 @@ class PatientCase extends Model
                 'qa_id',
                 'is_priority',
                 'post_processing_id',
-                'stl_file_by_post_processing'
+                'stl_file_by_post_processing',
+                'expected_time',
+                'tooth_label_format',
+                'case_version',
+                'setup_type',
+                'scan_version',
         ];
 
 

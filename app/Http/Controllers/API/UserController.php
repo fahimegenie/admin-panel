@@ -66,6 +66,10 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->username = $request->first_name.' '.$request->last_name;
         $user->mobile_number = $request->mobile_number;
+        if(isset($request->country_name) && !empty($request->country_name)){
+            $user->country_name = $request->country_name;
+        }
+
         $image_name = '';
         if($request->hasFile('profile_pic')){
             $picture = $request->file('profile_pic');
@@ -127,6 +131,9 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->username = $request->first_name.' '.$request->last_name;
         $user->mobile_number = $request->mobile_number;
+        if(isset($request->country_name) && !empty($request->country_name)){
+            $user->country_name = $request->country_name;
+        }
         $image_name = $user->profile_pic;
         if($request->hasFile('profile_pic')){
             $picture = $request->file('profile_pic');

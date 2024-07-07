@@ -104,7 +104,16 @@ class PatientCaseController extends Controller
         }
 
         if(isset($request->created_by_admin) && !empty($request->created_by_admin)){
-            $request->created_by_admin = $request->created_by_admin;
+            $patient_cases->created_by_admin = $request->created_by_admin;
+        }
+        if(isset($request->expected_time) && !empty($request->expected_time)){
+            $patient_cases->expected_time = $request->expected_time;
+        }
+        if(isset($request->tooth_label_format) && !empty($request->tooth_label_format)){
+            $patient_cases->tooth_label_format = $request->tooth_label_format;
+        }
+        if(isset($request->setup_type) && !empty($request->setup_type)){
+            $patient_cases->setup_type = $request->setup_type;
         }
         
         $stl_upper_file = '';
@@ -253,6 +262,18 @@ class PatientCaseController extends Controller
         if(isset($request->is_priority) && !empty($request->is_priority)){
             $patient_cases->is_priority = $request->is_priority;
         }
+
+        if(isset($request->expected_time) && !empty($request->expected_time)){
+            $patient_cases->expected_time = $request->expected_time;
+        }
+        if(isset($request->tooth_label_format) && !empty($request->tooth_label_format)){
+            $patient_cases->tooth_label_format = $request->tooth_label_format;
+        }
+        if(isset($request->setup_type) && !empty($request->setup_type)){
+            $patient_cases->setup_type = $request->setup_type;
+        }
+
+        $patient_cases->case_version = ((int)$patient_cases->case_version + 1);
 
         if($request->hasFile('stl_upper_file')){
             $picture = $request->file('stl_upper_file');
@@ -475,6 +496,8 @@ class PatientCaseController extends Controller
                 $folder = 'uploads/stl'; 
                 $file_name = $this->storeImage($picture, $folder);
                 $patient_cases->stl_file_by_post_processing = $file_name;
+
+                $patient_cases->scan_version = ($patient_cases->scan_version + 1);
             }
 
         }

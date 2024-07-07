@@ -35,6 +35,11 @@ return new class extends Migration
             $table->unsignedBigInteger('qa_id')->default(0);
             $table->unsignedBigInteger('is_priority')->default(0);
             $table->unsignedBigInteger('post_processing_id')->default(0);
+            $table->string('expected_time')->nullable();
+            $table->string('tooth_label_format')->nullable();
+            $table->unsignedTinyInteger('case_version')->default(1);
+            $table->string('setup_type')->nullable();
+            $table->unsignedTinyInteger('scan_version')->default(0);
             $table->timestamps();
         });
     }
