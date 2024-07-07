@@ -12,11 +12,14 @@ use App\Models\PatientCase;
 use App\Models\Xray;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Repositories\ActivityLogs;
 
 class PatientCaseController extends Controller
 {
     
     use ImageStorageTrait;
+
+    private $activityLog;
     
      /**
      * @var array
@@ -25,11 +28,13 @@ class PatientCaseController extends Controller
     protected $status = 200;
     protected $user_id = 0;
     protected $role_name = '';
-    public function __construct(){
+    public function __construct(ActivityLogs $activityLog=null){
         if(!empty(auth()->user())){
             $this->user_id = auth()->user()->id;
             $this->role_name = auth()->user()->role_name;
         }
+
+        $this->activityLog = $activityLog;
     }
     
     public function index(){
@@ -329,6 +334,16 @@ class PatientCaseController extends Controller
                     $xrays->type = 'patient_cases';
                     $xrays->p_case_id = $p_case_id;
                     $xrays->save();
+                }
+            }
+        }
+
+
+        $changeFields = $patient_cases->getChanges();
+        if (!empty($changeFields)) {
+            foreach ($changeFields as $key => $changeField){
+                if(!empty($changeField) && $key != 'created_at' && $key != 'updated_at'){
+                    $this->activityLog->addLog(auth()->user(), ucfirst($this->role_name), "updated", $key.' => '.$changeField, $changeFields->id, '', 'patient_cases');
                 }
             }
         }
