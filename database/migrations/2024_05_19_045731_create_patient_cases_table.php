@@ -40,6 +40,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('case_version')->default(1);
             $table->string('setup_type')->nullable();
             $table->unsignedTinyInteger('scan_version')->default(0);
+            $table->string('container_file_by_post_processing')->nullable();
             $table->timestamps();
         });
     }

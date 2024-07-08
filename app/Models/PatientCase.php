@@ -43,6 +43,7 @@ class PatientCase extends Model
                 'case_version',
                 'setup_type',
                 'scan_version',
+                'container_file_by_post_processing',
         ];
 
 

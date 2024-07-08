@@ -516,6 +516,18 @@ class PatientCaseController extends Controller
             }
 
         }
+        if(isset($request->container_file_by_post_processing) && !empty($request->container_file_by_post_processing)){
+            if($request->hasFile('container_file_by_post_processing')){
+                $file_name = '';
+                $picture = $request->file('container_file_by_post_processing');
+                $folder = 'uploads/stl'; 
+                $file_name = $this->storeImage($picture, $folder);
+                $patient_cases->container_file_by_post_processing = $file_name;
+
+                $patient_cases->scan_version = ($patient_cases->scan_version + 1);
+            }
+
+        }
         
         
         $patient_cases->save();
