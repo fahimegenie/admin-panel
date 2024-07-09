@@ -46,7 +46,7 @@ class PatientCaseController extends Controller
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
                                 })->orderBy('is_priority', 'DESC')
-                                ->paginate('10');
+                                ->get();
         
         if(empty($patient_cases)){
             $this->status = 400;
