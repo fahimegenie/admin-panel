@@ -197,7 +197,7 @@ class PatientCaseController extends Controller
 
     public function detail($guid){
 
-        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'planner', 'qa'])
+        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])
                                 // ->when($this->role_name, function($q){
                                 //     if($this->role_name == 'post_processing'){
                                 //         $q->whereIn('status', [8, 9, 10]);
