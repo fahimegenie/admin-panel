@@ -41,6 +41,9 @@ return new class extends Migration
             $table->string('setup_type')->nullable();
             $table->unsignedTinyInteger('scan_version')->default(0);
             $table->string('container_file_by_post_processing')->nullable();
+            $table->unsignedBigInteger('sub_client_id')->default(0);
+            $table->unsignedBigInteger('client_id')->default(0);
+            $table->unsignedTinyInteger('verified_by_client')->default(0);
             $table->timestamps();
         });
     }

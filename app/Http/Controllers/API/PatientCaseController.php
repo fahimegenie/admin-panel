@@ -41,7 +41,7 @@ class PatientCaseController extends Controller
         $patient_cases = [];
             $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->when($this->role_name, function($q){
                                     if($this->role_name == 'post_processing'){
-                                        $q->whereIn('status', [9, 10, 13, 14]);
+                                        $q->whereIn('status', [9, 10, 13, 14])->where('verified_by_client', 1);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
@@ -104,6 +104,12 @@ class PatientCaseController extends Controller
         $patient_cases->chief_complaint = $request->chief_complaint;
         $patient_cases->treatment_plan = $request->treatment_plan;
         $patient_cases->created_by = auth()->user()->id;
+        $patient_cases->verified_by_client = 1;
+        if(auth()->user() && !empty(auth()->user()->client_id)){
+            $patient_cases->sub_client_id = auth()->user()->id;
+            $patient_cases->client_id = auth()->user()->client_id;
+            $patient_cases->verified_by_client = 0;
+        }
         if(isset($request->is_priority) && !empty($request->is_priority)){
             $patient_cases->is_priority = $request->is_priority;
         }
@@ -578,5 +584,26 @@ class PatientCaseController extends Controller
         $this->response['data'] = $patient_cases;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
+    }
+
+    public function verified_by_client($guid){
+        $patient_cases = PatientCase::where('guid', $guid)->first();
+
+        if(empty($patient_cases)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);      
+        }
+
+        $patient_cases->verified_by_client = 1;
+        $patient_cases->save();
+
+        $this->response['message'] = 'Verified by client successfully!';
+        $this->response['data'] = $patient_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+
     }
 }

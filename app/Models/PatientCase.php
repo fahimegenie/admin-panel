@@ -44,6 +44,9 @@ class PatientCase extends Model
                 'setup_type',
                 'scan_version',
                 'container_file_by_post_processing',
+                'sub_client_id',
+                'client_id',
+                'verified_by_client'
         ];
 
 
