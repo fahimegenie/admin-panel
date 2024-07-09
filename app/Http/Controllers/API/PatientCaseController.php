@@ -43,7 +43,7 @@ class PatientCaseController extends Controller
                                     if($this->role_name == 'post_processing'){
                                         $q->whereIn('status', [9, 10, 13, 14])->where('verified_by_client', 1);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
-                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
+                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
                                     }
                                 })->orderBy('is_priority', 'DESC')
                                 ->get();
