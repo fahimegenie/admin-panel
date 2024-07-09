@@ -69,7 +69,7 @@ class PatientCase extends Model
     }
 
     public function case_status_users(){
-        return $this->hasMany(CasesStatusUser::class, 'id', 'p_case_id');
+        return $this->hasMany(CasesStatusUser::class, 'p_case_id', 'id');
     }
 
     public function planner(){
