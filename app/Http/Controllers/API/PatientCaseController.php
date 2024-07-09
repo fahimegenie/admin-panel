@@ -339,14 +339,14 @@ class PatientCaseController extends Controller
         }
 
 
-        $changeFields = $patient_cases->getChanges();
-        if (!empty($changeFields)) {
-            foreach ($changeFields as $key => $changeField){
-                if(!empty($changeField) && $key != 'created_at' && $key != 'updated_at'){
-                    $this->activityLog->addLog(auth()->user(), ucfirst($this->role_name), "updated", $key.' => '.$changeField, $changeFields->id, '', 'patient_cases');
-                }
-            }
-        }
+        // $changeFields = $patient_cases->getChanges();
+        // if (!empty($changeFields)) {
+        //     foreach ($changeFields as $key => $changeField){
+        //         if(!empty($changeField) && $key != 'created_at' && $key != 'updated_at'){
+        //             $this->activityLog->addLog(auth()->user(), ucfirst($this->role_name), "updated", $key.' => '.$changeField, $changeFields->id, '', 'patient_cases');
+        //         }
+        //     }
+        // }
 
     
         $this->response['message'] = 'Patient case updated successfully!';
