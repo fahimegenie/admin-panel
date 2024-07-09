@@ -41,7 +41,7 @@ class PatientCaseController extends Controller
         $patient_cases = [];
             $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->when($this->role_name, function($q){
                                     if($this->role_name == 'post_processing'){
-                                        $q->whereIn('status', [8, 9, 10]);
+                                        $q->whereIn('status', [9, 10, 13, 14]);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id);
                                     }
@@ -124,7 +124,6 @@ class PatientCaseController extends Controller
         $stl_upper_file = '';
         $stl_lower_file = '';
         $stl_byte_scan_file = '';
-        $ipr = '';
         if($request->hasFile('stl_upper_file')){
             $picture = $request->file('stl_upper_file');
             $folder = 'uploads/stl'; 
@@ -140,15 +139,15 @@ class PatientCaseController extends Controller
             $folder = 'uploads/stl'; 
             $stl_byte_scan_file = $this->storeImage($picture, $folder);
         }
-        if($request->hasFile('ipr')){
-            $picture = $request->file('ipr');
-            $folder = 'uploads/pdf'; 
-            $ipr = $this->storeImage($picture, $folder);
-        }
+        // if($request->hasFile('ipr')){
+        //     $picture = $request->file('ipr');
+        //     $folder = 'uploads/pdf'; 
+        //     $ipr = $this->storeImage($picture, $folder);
+        // }
         $patient_cases->stl_upper_file = $stl_upper_file;
         $patient_cases->stl_lower_file = $stl_lower_file;
         $patient_cases->stl_byte_scan_file = $stl_byte_scan_file;
-        $patient_cases->ipr = $ipr;
+        $patient_cases->ipr = $request->ipr;
         $patient_cases->save();
 
         $p_case_id = $patient_cases->id;
@@ -263,7 +262,7 @@ class PatientCaseController extends Controller
         $stl_upper_file = $patient_cases->stl_upper_file;
         $stl_lower_file = $patient_cases->stl_lower_file;
         $stl_byte_scan_file = $patient_cases->stl_byte_scan_file;
-        $ipr = $patient_cases->ipr;
+        // $ipr = $patient_cases->ipr;
         if(isset($request->is_priority) && !empty($request->is_priority)){
             $patient_cases->is_priority = $request->is_priority;
         }
@@ -295,15 +294,15 @@ class PatientCaseController extends Controller
             $folder = 'uploads/stl'; 
             $stl_byte_scan_file = $this->storeImage($picture, $folder);
         }
-        if($request->hasFile('ipr')){
-            $picture = $request->file('ipr');
-            $folder = 'uploads/pdf'; 
-            $ipr = $this->storeImage($picture, $folder);
-        }
+        // if($request->hasFile('ipr')){
+        //     $picture = $request->file('ipr');
+        //     $folder = 'uploads/pdf'; 
+        //     $ipr = $this->storeImage($picture, $folder);
+        // }
         $patient_cases->stl_upper_file = $stl_upper_file;
         $patient_cases->stl_lower_file = $stl_lower_file;
         $patient_cases->stl_byte_scan_file = $stl_byte_scan_file;
-        $patient_cases->ipr = $ipr;
+        // $patient_cases->ipr = $ipr;
         $patient_cases->save();
 
         $p_case_id = $patient_cases->id;
