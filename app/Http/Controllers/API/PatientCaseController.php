@@ -356,7 +356,7 @@ class PatientCaseController extends Controller
     }
 
     public function destroy($guid){
-        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
+        $patient_cases = PatientCase::where('guid', $guid)->first();
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
