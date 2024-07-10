@@ -245,7 +245,7 @@ class PatientCaseController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('guid', $guid)->first();
+        $patient_cases = PatientCase::where('created_by', $this->user_id)->where('sub_client_id', $this->user_id)->where('guid', $guid)->first();
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
