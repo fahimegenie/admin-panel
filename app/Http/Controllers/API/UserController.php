@@ -22,7 +22,7 @@ class UserController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::with('teams')->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        $users = User::with(['teams', 'my_cases'])->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -64,7 +64,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->username = $request->first_name.' '.$request->last_name;
+        $user->username = $request->first_name.'-'.$request->last_name;
         $user->mobile_number = $request->mobile_number;
         if(isset($request->country_name) && !empty($request->country_name)){
             $user->country_name = $request->country_name;
@@ -87,7 +87,7 @@ class UserController extends Controller
     }
 
     public function detail($guid){
-        $user = User::where('guid', $guid)->first();
+        $user = User::with('my_cases')->where('guid', $guid)->first();
         if(empty($user)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -129,7 +129,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->username = $request->first_name.' '.$request->last_name;
+        $user->username = $request->first_name.'_'.$request->last_name;
         $user->mobile_number = $request->mobile_number;
         if(isset($request->country_name) && !empty($request->country_name)){
             $user->country_name = $request->country_name;

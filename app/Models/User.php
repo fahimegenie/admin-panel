@@ -132,6 +132,10 @@ class User extends Authenticatable implements JWTSubject
     public function post_processing(){
         return $this->belongsTo(PatientCase::class, 'id', 'post_processing_id');
     }
+
+    public function my_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id');
+    }
    
     
 }
