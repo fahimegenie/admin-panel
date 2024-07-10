@@ -23,6 +23,6 @@ class CasesStatusUser extends Model
 
     
     public function cases_status_users_comments(){
-        return $this->hasMany(CasesStatusUsersComment::class, 'pcsu_id', 'id');
+        return $this->hasMany(CasesStatusUsersComment::class, 'pcsu_id', 'id')->orderBy('id', 'DESC');
     }
 }

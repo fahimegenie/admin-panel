@@ -45,7 +45,7 @@ class PatientCaseController extends Controller
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
                                     }
-                                })->orderBy('is_priority', 'DESC')
+                                })->orderBy('id', 'DESC')->orderBy('is_priority', 'DESC')
                                 ->get();
         
         if(empty($patient_cases)){
