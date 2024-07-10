@@ -70,7 +70,6 @@ class PatientCaseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
             'extraction' => 'required',
             'attachments' => 'required',
             'case_id' => 'required|unique:patient_cases',
@@ -81,7 +80,6 @@ class PatientCaseController extends Controller
             'treatment_plan' => 'required',
             'stl_upper_file' => 'required',
             'stl_lower_file' => 'required',
-            'stl_byte_scan_file' => 'required',
             'is_priority' => 'nullable|numeric',
         ]);
   
@@ -95,7 +93,7 @@ class PatientCaseController extends Controller
         
         $patient_cases = new PatientCase();
         $patient_cases->name = $request->name;
-        $patient_cases->email = $request->email;
+        $patient_cases->email = isset($request->email) ? $request->email : '';
         $patient_cases->extraction = $request->extraction;
         $patient_cases->attachments = $request->attachments;
         $patient_cases->case_id = $request->case_id;
@@ -225,7 +223,6 @@ class PatientCaseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
             'extraction' => 'required',
             'attachments' => 'required',
             'case_id' => 'required|unique:patient_cases,id',
@@ -255,7 +252,9 @@ class PatientCaseController extends Controller
         }
         
         $patient_cases->name = $request->name;
-        $patient_cases->email = $request->email;
+        if(isset($request->email) && !empty($request->email)){
+            $patient_cases->email = $request->email;
+        }
         $patient_cases->extraction = $request->extraction;
         $patient_cases->attachments = $request->attachments;
         $patient_cases->case_id = $request->case_id;
