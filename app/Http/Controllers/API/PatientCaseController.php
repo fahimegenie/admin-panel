@@ -528,7 +528,7 @@ class PatientCaseController extends Controller
                 $file_name = $this->storeImage($picture, $folder);
                 $patient_cases->container_file_by_post_processing = $file_name;
 
-                $patient_cases->scan_version = ($patient_cases->scan_version + 1);
+                // $patient_cases->scan_version = ($patient_cases->scan_version + 1);
             }
 
         }
