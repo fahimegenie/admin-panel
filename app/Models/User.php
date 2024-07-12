@@ -73,6 +73,8 @@ class User extends Authenticatable implements JWTSubject
 
     // protected $with = ['teams'];
 
+    protected $withCount = ['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases'];
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -112,29 +114,30 @@ class User extends Authenticatable implements JWTSubject
 
 
     public function teams(){
-
         return $this->belongsTo(Team::class, 'team_id', 'id');
-
     }
 
-    public function created_user(){
+    public function created_user_cases(){
         return $this->belongsTo(PatientCase::class, 'id', 'created_by');
     }
-    public function users(){
+    public function assign_to_casses(){
         return $this->belongsTo(PatientCase::class, 'id', 'assign_to');
     }
-    public function planner(){
+    public function planner_casses(){
         return $this->belongsTo(PatientCase::class, 'id', 'planner_id');
     }
-    public function qa(){
+    public function qa_cases(){
         return $this->belongsTo(PatientCase::class, 'id', 'qa_id');
     }
-    public function post_processing(){
+    public function post_processing_cases(){
         return $this->belongsTo(PatientCase::class, 'id', 'post_processing_id');
     }
 
     public function my_cases(){
         return $this->hasMany(PatientCase::class, 'created_by', 'id');
+    }
+    public function sub_client_cases(){
+        return $this->hasMany(PatientCase::class, 'client_id', 'id');
     }
    
     
