@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
 
         $patient_cases = [];
-        $patient_cases = User::withCount(['created_user', 'users', 'planner', 'qa', 'post_processing'])->where('id', auth()->user()->id)->first();
+        $patient_cases = User::withCount(['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases'])->where('id', auth()->user()->id)->first();
         
 
         $patient_cases['cases_count'] = PatientCase::count();
