@@ -48,7 +48,11 @@ class DashboardController extends Controller
         $patient_cases['cases_10_count'] = PatientCase::where('status', 10)->count();
         $patient_cases['cases_11_count'] = PatientCase::where('status', 11)->count();
         $patient_cases['cases_12_count'] = PatientCase::where('status', 12)->count();
-        
+        $patient_cases['cases_13_count'] = PatientCase::where('status', 13)->count();
+        $patient_cases['cases_14_count'] = PatientCase::where('status', 14)->count();
+        $patient_cases['cases_15_count'] = PatientCase::where('status', 15)->count();
+        $patient_cases['cases_16_count'] = PatientCase::where('status', 16)->count();
+            
 
         if(empty($patient_cases)){
             $this->status = 400;
