@@ -155,7 +155,7 @@ class PatientCaseController extends Controller
         $patient_cases->save();
 
         $cases_status_user = new CasesStatusUser();
-        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->p_case_id = $patient_cases->id;
         $cases_status_user->user_id = auth()->user()->id;
         $cases_status_user->case_status = $patient_cases->status;
         $cases_status_user->save();
@@ -429,7 +429,7 @@ class PatientCaseController extends Controller
         $patient_cases->save();
 
         $cases_status_user = new CasesStatusUser();
-        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->p_case_id = $patient_cases->id;
         $cases_status_user->user_id = auth()->user()->id;
         $cases_status_user->case_status = $patient_cases->status;
         $cases_status_user->save();
@@ -478,7 +478,7 @@ class PatientCaseController extends Controller
         $patient_cases->save();
 
         $cases_status_user = new CasesStatusUser();
-        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->p_case_id = $patient_cases->id;
         $cases_status_user->user_id = auth()->user()->id;
         $cases_status_user->case_status = $patient_cases->status;
         $cases_status_user->save();
