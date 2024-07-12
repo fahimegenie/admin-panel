@@ -154,6 +154,12 @@ class PatientCaseController extends Controller
         $patient_cases->ipr = $request->ipr;
         $patient_cases->save();
 
+        $cases_status_user = new CasesStatusUser();
+        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->user_id = auth()->user()->id;
+        $cases_status_user->case_status = $patient_cases->status;
+        $cases_status_user->save();
+
         $p_case_id = $patient_cases->id;
         // save patient images files
         if(isset($request->image_files) && !empty($request->image_files)){
@@ -422,6 +428,12 @@ class PatientCaseController extends Controller
         }
         $patient_cases->save();
 
+        $cases_status_user = new CasesStatusUser();
+        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->user_id = auth()->user()->id;
+        $cases_status_user->case_status = $patient_cases->status;
+        $cases_status_user->save();
+
         $this->response['message'] = 'Patient case assigned successfully!';
         $this->response['data'] = $patient_cases;
         $this->response['status'] = $this->status;
@@ -464,6 +476,12 @@ class PatientCaseController extends Controller
             $patient_cases->qa_id = auth()->user()->id;
         }
         $patient_cases->save();
+
+        $cases_status_user = new CasesStatusUser();
+        $cases_status_user->p_case_id = $patient_cases->p_case_id;
+        $cases_status_user->user_id = auth()->user()->id;
+        $cases_status_user->case_status = $patient_cases->status;
+        $cases_status_user->save();
 
         $this->response['message'] = 'Patient case assigned successfully!';
         $this->response['data'] = $patient_cases;
