@@ -210,7 +210,6 @@ class PatientCaseController extends Controller
                                 //     }
                                 // })
                                 ->where('guid', $guid)->first();
-
         
         if(empty($patient_cases)){
             $this->status = 400;
