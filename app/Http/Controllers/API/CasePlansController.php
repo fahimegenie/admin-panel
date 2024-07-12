@@ -112,7 +112,7 @@ class CasePlansController extends Controller
 
     public function detail($guid){
 
-        $case_plans = CasePlan::where('created_by', $this->user_id)->where('guid', $guid)->first();
+        $case_plans = CasePlan::where('guid', $guid)->first();
         
         if(empty($case_plans)){
             $this->status = 400;
@@ -143,7 +143,7 @@ class CasePlansController extends Controller
             return response()->json($this->response, $this->status); 
         }
 
-        $case_plans = CasePlan::where('p_case_id', $request->p_case_id)->where('guid', $guid)->first();
+        $case_plans = CasePlan::where('guid', $guid)->first();
         if(empty($case_plans)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -174,7 +174,7 @@ class CasePlansController extends Controller
     }
 
     public function destroy($guid){
-        $case_plans = CasePlan::where('created_by', $this->user_id)->where('guid', $guid)->first();
+        $case_plans = CasePlan::where('guid', $guid)->first();
         if(empty($case_plans)){
             $this->status = 400;
             $this->response['status'] = $this->status;
