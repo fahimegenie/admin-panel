@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
 
     // protected $with = ['teams'];
 
-    protected $withCount = ['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases'];
+    protected $withCount = ['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases', 'in_process_cases', 'pending_approval_cases', 'step_filea_ready_cases', 'need_more_info_cases', 'need_mofication_cases'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -139,7 +139,22 @@ class User extends Authenticatable implements JWTSubject
     public function sub_client_cases(){
         return $this->hasMany(PatientCase::class, 'client_id', 'id');
     }
-   
+
+    public function in_process_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [2, 3]);
+    }
+    public function pending_approval_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [7]);
+    }
+    public function step_filea_ready_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [11, 12]);
+    }
+    public function need_more_info_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [4]);
+    }
+    public function need_mofication_cases(){
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [8]);
+    }
     
 }
 
