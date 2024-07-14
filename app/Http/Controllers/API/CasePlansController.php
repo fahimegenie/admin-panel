@@ -78,7 +78,20 @@ class CasePlansController extends Controller
             foreach ($case_plans as $key => $value) {
                 if(!empty($value)){
                    $case_plans = new CasePlan();
-                    $case_plans->p_case_id = $request->p_case_id;
+                   $p_case_id = 0;
+                   if(isset($request->p_case_id) && !empty($request->p_case_id) && is_numeric($request->p_case_id)){
+                        $patient_case = PatientCase::where('id', $request->p_case_id)->first();
+                        if(!empty($patient_case)){
+                            $p_case_id = $patient_case->id;
+                        }
+                    }else{
+                        $patient_case = PatientCase::where('guid', $request->p_case_id)->first();
+                        if(!empty($patient_case)){
+                            $p_case_id = $patient_case->id;
+                        }
+                    }
+                   if(!empty($patient_case))
+                    $case_plans->p_case_id = $p_case_id;
                     $case_plans->text_notes = $value['text_notes'];
                     $case_plans->simulation_link_url = $value['simulation_link_url'];
                     $case_plans->created_by = auth()->user()->id;
