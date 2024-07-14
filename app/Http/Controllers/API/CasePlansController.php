@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\ImageStorageTrait;
 use Illuminate\Support\Facades\Validator;
 use App\Models\CasePlan;
+use App\Models\PatientCase;
 
 class CasePlansController extends Controller
 {
