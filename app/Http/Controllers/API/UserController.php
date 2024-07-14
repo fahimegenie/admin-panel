@@ -46,6 +46,7 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users',
+            'username' => 'nullable|unique:users',
             'password' => 'required|confirmed|min:8',
             'mobile_number' => 'required',
             'profile_pic' => 'required'
@@ -64,7 +65,11 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->username = $request->first_name.'-'.$request->last_name;
+        if(isset($request->username) && !empty($request->username)){
+            $user->username = $request->username;
+        }else{
+            $user->username = $request->first_name.'-'.$request->last_name;
+        }
         $user->mobile_number = $request->mobile_number;
         if(isset($request->country_name) && !empty($request->country_name)){
             $user->country_name = $request->country_name;
@@ -107,6 +112,7 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users,id',
+            'username' => 'nullable|unique:users,id',
             'mobile_number' => 'required',
         ]);
   
@@ -129,7 +135,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->username = $request->first_name.'_'.$request->last_name;
+        if(isset($request->username) && !empty($request->username)){
+            $user->username = $request->username;
+        }
         $user->mobile_number = $request->mobile_number;
         if(isset($request->country_name) && !empty($request->country_name)){
             $user->country_name = $request->country_name;
