@@ -22,7 +22,7 @@ class UserController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::with(['teams', 'my_cases'])->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        $users = User::with(['teams', 'my_cases', 'completed_cases'])->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -92,7 +92,7 @@ class UserController extends Controller
     }
 
     public function detail($guid){
-        $user = User::with('my_cases')->where('guid', $guid)->first();
+        $user = User::with(['my_cases', 'completed_cases'])->where('guid', $guid)->first();
         if(empty($user)){
             $this->status = 400;
             $this->response['status'] = $this->status;
