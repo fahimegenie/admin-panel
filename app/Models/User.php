@@ -141,22 +141,22 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function in_process_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [2, 3]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [2, 3]);
     }
     public function pending_approval_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [7]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [7]);
     }
     public function step_filea_ready_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [11, 12]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [11, 12]);
     }
     public function need_more_info_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [4]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [4]);
     }
     public function need_mofication_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [8]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [8]);
     }
     public function completed_cases(){
-        return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [15]);
+        return $this->hasMany(PatientCase::class, 'created_by', 'id')->orWhere('client_id', $this->id)->whereIn('status', [15]);
     }
     
 }
