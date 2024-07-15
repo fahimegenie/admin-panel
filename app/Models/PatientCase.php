@@ -46,7 +46,8 @@ class PatientCase extends Model
                 'container_file_by_post_processing',
                 'sub_client_id',
                 'client_id',
-                'verified_by_client'
+                'verified_by_client',
+                'phone'
         ];
 
 
