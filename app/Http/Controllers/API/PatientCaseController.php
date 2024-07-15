@@ -107,6 +107,8 @@ class PatientCaseController extends Controller
             $patient_cases->sub_client_id = auth()->user()->id;
             $patient_cases->client_id = auth()->user()->client_id;
             $patient_cases->verified_by_client = 0;
+        }else{
+            $patient_cases->start_date_time = date('Y-m-d', strtotime('h:m:s'));
         }
         if(isset($request->is_priority) && !empty($request->is_priority)){
             $patient_cases->is_priority = $request->is_priority;
@@ -623,6 +625,7 @@ class PatientCaseController extends Controller
         }
 
         $patient_cases->verified_by_client = 1;
+        $patient_cases->start_date_time = date('Y-m-d', strtotime('h:m:s'));
         $patient_cases->save();
 
         $this->response['message'] = 'Verified by client successfully!';

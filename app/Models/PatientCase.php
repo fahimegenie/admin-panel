@@ -47,7 +47,8 @@ class PatientCase extends Model
                 'sub_client_id',
                 'client_id',
                 'verified_by_client',
-                'phone'
+                'phone',
+                'start_date_time'
         ];
 
 
