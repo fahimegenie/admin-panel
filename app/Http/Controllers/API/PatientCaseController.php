@@ -38,6 +38,12 @@ class PatientCaseController extends Controller
     }
     
     public function index(){
+        
+        $search = '';
+        if(isset(request()->search) && !empty(request()->search)){
+            $search = request()->search;
+        }
+        
         $patient_cases = [];
             $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->when($this->role_name, function($q){
                                     if($this->role_name == 'post_processing'){
@@ -45,7 +51,11 @@ class PatientCaseController extends Controller
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
                                     }
-                                })->orderBy('id', 'DESC')->orderBy('is_priority', 'DESC')
+                                })
+                                ->when(!empty($search), function($q) use($search){
+                                    $q->where('case_id', 'LIKE', '%'.$search.'%')->orWhere('name', 'LIKE', '%'.$search.'%');
+                                })
+                                ->orderBy('id', 'DESC')->orderBy('is_priority', 'DESC')
                                 ->get();
         
         if(empty($patient_cases)){
@@ -90,6 +100,17 @@ class PatientCaseController extends Controller
             $this->response['message'] = $validator->messages()->first();
             return response()->json($this->response, $this->status);
         }
+        
+        $patient_cases = PatientCase::where('case_id', $request->case_id)->first();
+        
+        if($patient_cases){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = 'Case id already exist';
+            return response()->json($this->response, $this->status);
+        }
+        
         
         $patient_cases = new PatientCase();
         $patient_cases->name = $request->name;
@@ -249,7 +270,13 @@ class PatientCaseController extends Controller
             return response()->json($this->response, $this->status); 
         }
         
-        $patient_cases = PatientCase::where('created_by', $this->user_id)->orWhere('client_id', $this->user_id)->where('guid', $guid)->first();
+        $patient_cases = PatientCase::where('guid', $guid)
+                                    ->when((!empty($this->role_name) && $this->role_name != 'super_admin'), function($query){
+                                        $query->where('created_by', $this->user_id)->orWhere('client_id', $this->user_id);
+                                    })    
+                                    ->first();
+            
+        // $patient_cases = PatientCase::where('created_by', $this->user_id)->orWhere('client_id', $this->user_id)->where('guid', $guid)->first();
         if(empty($patient_cases)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -634,4 +661,17 @@ class PatientCaseController extends Controller
         return response()->json($this->response, $this->status);
 
     }
+    
+    public function completed_cases(){
+
+        $completed_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])->where('status', 15)->where(function($q){
+                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
+                                })->orderBy('id', 'DESC')->orderBy('is_priority', 'DESC')->get();
+
+        $this->response['message'] = 'Completed cases list!';
+        $this->response['data'] = $completed_cases;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    }
+    
 }

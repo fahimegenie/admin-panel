@@ -185,7 +185,7 @@ class TeamsController extends Controller
         $teams = Team::findOrFail($request->team_id);
         
 
-        $this->response['message'] = 'Team Create successfully!';
+        $this->response['message'] = 'Team assign successfully!';
         $this->response['data'] = $teams;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
@@ -200,5 +200,39 @@ class TeamsController extends Controller
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
     }
+    
+    public function removeTeamFromUser(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+
+        ]);
+  
+        if($validator->fails()){
+            $this->status = 422;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = false;
+            $this->response['message'] = $validator->messages()->first();
+            return response()->json($this->response, $this->status); 
+        }
+        $user = User::findOrFail($request->user_id);
+        if(empty($user)){
+            $this->status = 400;
+            $this->response['status'] = $this->status;
+            $this->response['success'] = true;
+            $this->response['message'] = 'Record not found';
+            return response()->json($this->response, $this->status);  
+        }
+
+        $user->team_id = 0;
+        $user->Save();
+   
+
+        $this->response['message'] = 'User remove from team successfully!';
+        $this->response['data'] = $user;
+        $this->response['status'] = $this->status;
+        return response()->json($this->response, $this->status);
+    }
+    
 
 }

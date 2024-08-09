@@ -43,6 +43,9 @@ class User extends Authenticatable implements JWTSubject
         'clinic_name',
         'team_id',
         'country_name',
+        'monthly_total_cases',
+        'monthly_target_cases',
+        'extra_cases'
 
     ];
 

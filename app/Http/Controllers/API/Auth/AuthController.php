@@ -57,9 +57,7 @@ class AuthController extends ApiController
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8',
-            'mobile_number' => 'required',
-            'profile_pic' => 'required'
+            'password' => 'required|confirmed|min:8'
         ]);
     
         if ($validator->fails()) {
@@ -76,7 +74,7 @@ class AuthController extends ApiController
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->username = $request->first_name.' '.$request->last_name;
-        $user->mobile_number = $request->mobile_number;
+        $user->mobile_number = $request->mobile_number ?? '';
         $image_name = '';
         if($request->hasFile('profile_pic')){
             $picture = $request->file('profile_pic');

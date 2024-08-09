@@ -13,6 +13,8 @@ use App\Http\Controllers\API\TeamsController;
 use App\Http\Controllers\API\CasePlansController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\SubClientController;
+use App\Http\Controllers\API\FileUploadController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +44,10 @@ Route::middleware('auth:api')->group(function () {
         Route::post('users/update/{guid}', 'update');
         Route::delete('users/{guid}', 'destroy');
         Route::get('user/treatment-planners', 'treatmentPlanners');
-        Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck');    
+        Route::get('user/treatment-planners-quality-check', 'treatmentPlannersQualityCheck'); 
+        
+        Route::post('user/password-update', 'passwordUpdate'); 
+        Route::post('user/profile-pic-update', 'updateUserProfilePic'); 
     });
 
     Route::controller(SubClientController::class)->group(function () {
@@ -79,6 +84,8 @@ Route::middleware('auth:api')->group(function () {
         // 
         Route::get('patient_cases/by_case_status/{status}', 'getCasesByStatus');
         Route::get('patient_cases/verified_by_client/{guid}', 'verified_by_client');
+        
+        Route::get('patient_case/completed_cases', 'completed_cases');
     
     });
 
@@ -122,6 +129,8 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('teams/{guid}', 'destroy');
         Route::post('team/assign-teams', 'assignUserToTeams');
         Route::get('team/get-teams-detail/{team_id}', 'get_teams_detail');
+        
+        Route::post('team/remove-teams', 'removeTeamFromUser');
 
         
 
@@ -141,5 +150,13 @@ Route::middleware('auth:api')->group(function () {
     
     
 
+});
+
+
+Route::post('upload', [FileUploadController::class, 'uploadFile']);
+
+
+Route::get('php-info', function(){
+    echo phpinfo(); 
 });
 
