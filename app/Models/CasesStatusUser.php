@@ -21,7 +21,7 @@ class CasesStatusUser extends Model
                     'status',
         ];
 
-    protected $with = ['user_detail'];
+    // protected $with = ['user_detail'];
 
     public function user_detail(){
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -30,4 +30,9 @@ class CasesStatusUser extends Model
     public function cases_status_users_comments(){
         return $this->hasMany(CasesStatusUsersComment::class, 'pcsu_id', 'id')->orderBy('id', 'DESC');
     }
+    
+    public function case_detail(){
+        return $this->belongsTo(PatientCase::class, 'p_case_id', 'id');
+    }
+    
 }

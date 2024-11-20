@@ -50,7 +50,11 @@ class PatientCase extends Model
                 'client_id',
                 'verified_by_client',
                 'phone',
-                'start_date_time'
+                'start_date_time',
+                'stl_file_by_post_processing_we_transfer_link',
+                'patient_location',
+                'case_type',
+                'arch'
         ];
 
 

@@ -27,8 +27,9 @@ trait ImageStorageTrait
                 File::makeDirectory($path, 0777, true, true);
             } 
 
+            $file_name = $image->getClientOriginalName();
             // Generate a random name for the image
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
+            $imageName = $file_name.'_'.Str::random(10) . '.' . $image->getClientOriginalExtension();
             // Store the image in the specified folder
             $path = $image->move($folder,$imageName);
             // $path = $image->storeAs($folder, $imageName, 'public');

@@ -45,7 +45,9 @@ class User extends Authenticatable implements JWTSubject
         'country_name',
         'monthly_total_cases',
         'monthly_target_cases',
-        'extra_cases'
+        'extra_cases',
+        'full_name',
+        'is_8_hours_enabled',
 
     ];
 
@@ -56,10 +58,10 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
-    protected $appends = ['role_name', 'permissions'];
+    protected $appends = ['role_name', 'notifications_admin_count', 'notifications_case_submission_count', 'permissions'];
 
 
     /**
@@ -77,7 +79,7 @@ class User extends Authenticatable implements JWTSubject
 
     // protected $with = ['teams'];
 
-    protected $withCount = ['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases', 'in_process_cases', 'pending_approval_cases', 'step_filea_ready_cases', 'need_more_info_cases', 'need_mofication_cases', 'completed_cases'];
+    protected $withCount = ['created_user_cases', 'assign_to_casses', 'planner_casses', 'qa_cases', 'post_processing_cases', 'my_cases', 'sub_client_cases', 'in_process_cases', 'pending_approval_cases', 'step_filea_ready_cases', 'need_more_info_cases', 'need_mofication_cases', 'completed_cases', 'notifications'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -161,6 +163,26 @@ class User extends Authenticatable implements JWTSubject
     }
     public function completed_cases(){
         return $this->hasMany(PatientCase::class, 'created_by', 'id')->whereIn('status', [15]);
+    }
+    
+    public function notifications(){
+        return $this->belongsTo(Notification::class, 'id', 'user_id')->where('is_read', 0);
+    }
+    
+    
+    public function getNotificationsAdminCountAttribute(){
+        
+        return Notification::where('is_admin_id', 0)->where('is_read_admin', 0)->count();
+    }
+    
+    
+    public function getNotificationsCaseSubmissionCountAttribute(){
+        return Notification::where('is_admin_id', 0)->where('is_read_case_submission', 0)->count();
+    }
+    
+    
+    public function user_cases_history(){
+        return $this->belongsTo(CasesStatusUser::class, 'id', 'user_id');
     }
     
 }

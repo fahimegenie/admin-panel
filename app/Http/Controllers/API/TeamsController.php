@@ -76,7 +76,7 @@ class TeamsController extends Controller
 
     public function detail($guid){
 
-        $teams = Team::where('guid', $guid)->first();
+        $teams = Team::with('users')->where('guid', $guid)->first();
         
         if(empty($teams)){
             $this->status = 400;

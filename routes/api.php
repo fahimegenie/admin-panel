@@ -14,6 +14,10 @@ use App\Http\Controllers\API\CasePlansController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\SubClientController;
 use App\Http\Controllers\API\FileUploadController;
+use App\Http\Controllers\API\NotificationController;
+
+use App\Models\Permission;
+use App\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +32,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 Route::get('pass', function(){
-    return bcrypt('admin@@01');
+    return bcrypt('azeem123');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -48,6 +52,9 @@ Route::middleware('auth:api')->group(function () {
         
         Route::post('user/password-update', 'passwordUpdate'); 
         Route::post('user/profile-pic-update', 'updateUserProfilePic'); 
+        Route::get('update-full-name', 'updateFullName'); 
+        
+        
     });
 
     Route::controller(SubClientController::class)->group(function () {
@@ -86,6 +93,13 @@ Route::middleware('auth:api')->group(function () {
         Route::get('patient_cases/verified_by_client/{guid}', 'verified_by_client');
         
         Route::get('patient_case/completed_cases', 'completed_cases');
+        
+        Route::get('patient_case/cases_histories', 'casesHistories');
+        Route::get('cases_histories', 'cases_histories');
+        
+        Route::get('check_case_id/{case_id}', 'checkCaseIdUnique');
+        
+        
     
     });
 
@@ -146,7 +160,15 @@ Route::middleware('auth:api')->group(function () {
 
     
 
+    Route::controller(NotificationController::class)->group(function () {
+        Route::get('notifications', 'index');
+        Route::post('notifications/store', 'store');
+        Route::get('notifications/{guid}', 'detail');
 
+        Route::post('notifications_read_all', 'readAllUnReadNotifications');
+        
+        
+    });
     
     
 
@@ -157,6 +179,18 @@ Route::post('upload', [FileUploadController::class, 'uploadFile']);
 
 
 Route::get('php-info', function(){
+    $role = Role::find(1);
+    $role->givePermissionTo(Permission::all());
+        
     echo phpinfo(); 
 });
+
+
+
+Route::post('/upload-chunk', [FileUploadController::class, 'uploadChunk']);
+Route::post('/finalize-upload', [FileUploadController::class, 'finalizeUpload']);
+
+
+
+
 

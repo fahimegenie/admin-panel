@@ -22,7 +22,33 @@ class UserController extends Controller
     protected $status = 200;
     
     public function index(){
-        $users = User::with(['teams', 'my_cases', 'completed_cases'])->where('id', '<>', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        
+        $search = '';
+        if(isset(request()->search) && !empty(request()->search)){
+            $search = request()->search;
+        }
+        request()['page'] = 1;
+        if(isset(request()->current_page) && !empty(request()->current_page)){
+            request()['page'] = request()->current_page;
+        }
+        $pagination = (isset(request()->paginate) && request()->paginate == 'yes') ? 1 : 0;
+        $per_page = (isset(request()->per_page) && !empty(request()->per_page)) ? request()->per_page : 20;
+        
+        
+        $user = User::select('id','guid','username','first_name','last_name','email','mobile_number', 'phone', 'profile_pic', 'status', 'team_id','created_at')->with(['teams:id,guid,name,created_at'])->where('id', '<>', auth()->user()->id)
+                ->when((!empty($search)), function($q) use($search){
+                    $q->where('username', 'like','%'.$search.'%')->orWhere('email', 'like','%'.$search.'%')->orWhere('first_name', 'like','%'.$search.'%')->orWhere('last_name', 'like','%'.$search.'%')->orWhere('full_name', 'like','%'.$search.'%');
+                    
+                })
+            ->orderBy('id', 'DESC');
+        
+        if(!empty($pagination) && $pagination == 1){
+            $users = $user->paginate($per_page);
+        }else{
+            $users = $user->get();
+        }
+
+
         if(empty($users)){
             $this->status = 400;
             $this->response['status'] = $this->status;
@@ -30,6 +56,16 @@ class UserController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);      
         }
+        
+            // $role = Role::findOrFail(1);
+            
+            // $permissions = Permission::pluck('id')->all();
+            // if(!empty($permissions)){
+            //     $role->syncPermissions($permissions);
+            // }
+        
+        
+        
         $this->response['message'] = 'Users list!';
         $this->response['data'] = $users;
         $this->response['status'] = $this->status;
@@ -63,6 +99,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        $user->full_name = $request->first_name.' '.$request->last_name;
         if(isset($request->username) && !empty($request->username)){
             $user->username = $request->username;
         }else{
@@ -89,9 +126,29 @@ class UserController extends Controller
         if(isset($request->extra_cases) && !empty($request->extra_cases)){
             $user->extra_cases = $request->extra_cases;
         }
+        if(isset($request->is_8_hours_enabled)){
+            $user->is_8_hours_enabled = $request->is_8_hours_enabled;
+        }
         
         $user->profile_pic = $image_name;
         $user->save();
+
+
+        if(isset($request->role_id) && !empty($request->role_id)){
+            $role = Role::findOrFail($request->role_id);
+            if(!empty($role)){
+                $user->syncRoles([$role->name]);
+            }
+
+            if(isset($request->permissions) && !empty($request->permissions) && is_array($request->permissions)){
+                // dd($request->permissions);
+                $permissions = Permission::whereIn('id', $request->permissions)->pluck('id');
+                if(!empty($permissions)){
+                    $role->syncPermissions($permissions);
+                }
+            }
+        }
+        
         
         $this->response['message'] = 'User created successfully!';
         $this->response['data'] = $user;
@@ -140,6 +197,7 @@ class UserController extends Controller
             $this->response['message'] = 'Record not found';
             return response()->json($this->response, $this->status);     
         }
+        if(!empty($user) && !empty($user->role_name) && $user->role_name != 'super_admin'){
         $user->email = $request->email;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -158,6 +216,10 @@ class UserController extends Controller
             $folder = 'uploads'; 
             $image_name = $this->storeImage($picture, $folder);
         }
+        if(isset($request->is_8_hours_enabled)){
+            $user->is_8_hours_enabled = $request->is_8_hours_enabled;
+            User::where('client_id', $user->id)->update(['is_8_hours_enabled' => $request->is_8_hours_enabled]);
+        }
         $user->profile_pic = $image_name;
         
         
@@ -170,6 +232,8 @@ class UserController extends Controller
         if(isset($request->extra_cases) && !empty($request->extra_cases)){
             $user->extra_cases = $request->extra_cases;
         }
+        
+        $user->full_name = $request->first_name.' '.$request->last_name;
         
         $user->save();
         if(isset($request->role_id) && !empty($request->role_id)){
@@ -188,6 +252,8 @@ class UserController extends Controller
         }
         
         $permissions = Permission::pluck('id', 'id')->all();
+        
+        }
 
         
     
@@ -308,5 +374,20 @@ class UserController extends Controller
         $this->response['data'] = $user;
         $this->response['status'] = $this->status;
         return response()->json($this->response, $this->status);
+    }
+    
+    
+    public function updateFullName(){
+        $users = User::get();
+        if(!empty($users)){
+            foreach($users as $key => $value){
+                $user = User::findOrFail($value->id);
+                if(!empty($user)){
+                    $user->full_name = $value->first_name.' '.$value->last_name;
+                    $user->save();
+                }
+            }
+            dd('update pdate success full');
+        }
     }
 }

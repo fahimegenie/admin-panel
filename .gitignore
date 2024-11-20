@@ -20,3 +20,6 @@ yarn-error.log
 
 
 public/uploads/*
+
+storage/uploads/
+storage/uploads/*
