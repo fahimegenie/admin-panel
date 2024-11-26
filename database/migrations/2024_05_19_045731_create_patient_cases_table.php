@@ -44,7 +44,8 @@ return new class extends Migration
             $table->unsignedBigInteger('sub_client_id')->default(0);
             $table->unsignedBigInteger('client_id')->default(0);
             $table->unsignedTinyInteger('verified_by_client')->default(0);
-            $tabele->timestamp('start_date_time')->nullable();
+            $table->timestamp('start_date_time')->nullable();
+            $table->integer('start_date_time_timestamp_string')->nullable();
             $table->timestamps();
         });
     }

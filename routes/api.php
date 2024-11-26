@@ -98,6 +98,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('cases_histories', 'cases_histories');
         
         Route::get('check_case_id/{case_id}', 'checkCaseIdUnique');
+        Route::get('timeupdate', 'updateStartDateTimeInString');
         
         
     

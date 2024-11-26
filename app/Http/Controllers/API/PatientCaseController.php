@@ -81,9 +81,8 @@ class PatientCaseController extends Controller
             $date_to = request()->date_to;
         }
         
-        $timeLimit = Carbon::now()->addHours(16);
-        
-        $now = now();
+        $now = Carbon::now()->timestamp;
+        $timeLimit = Carbon::now()->addHours(8)->timestamp;
 
 
 
@@ -100,9 +99,18 @@ class PatientCaseController extends Controller
                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                     }else if($this->role_name != 'super_admin' && $this->role_name != 'case_submission'){
                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                            $q->where(function ($query) {
+                                                $query->where('created_by', auth()->user()->id)
+                                                      ->orWhere('assign_to', auth()->user()->id)
+                                                      ->orWhere('client_id', auth()->user()->id)
+                                                      ->orWhere('created_by', auth()->user()->client_id);
+                                            });
+                                            // $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                         }else{
-                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                            $q->where(function ($query) {
+                                                $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                            });
+                                            // $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
                                         }
                                     }
                                 })
@@ -148,10 +156,12 @@ class PatientCaseController extends Controller
                                     isset(request()->is_prority_cases) && request()->is_prority_cases == 1,
                                         function ($q) use($now, $timeLimit){
                                             
-                                        $q->whereBetween('start_date_time', [
-                                            $now->toDateTimeString(),
-                                            $timeLimit->toDateTimeString()
-                                        ]);
+                                            $q->where('start_date_time_timestamp_string', '<=', $timeLimit)->where('start_date_time_timestamp_string', '>=', $now)->whereNotIn('status', [7, 11, 12, 16, 18]);
+
+                                        // $q->whereBetween('start_date_time', [
+                                        //     $now->toDateTimeString(),
+                                        //     $timeLimit->toDateTimeString()
+                                        // ]);
 
                                         }
                                     )
@@ -340,6 +350,8 @@ class PatientCaseController extends Controller
                 }
             }
         }
+
+        $this->updateStartDateTimeInString();
         
         $this->response['message'] = 'Patient case created successfully!';
         $this->response['data'] = $patient_cases;
@@ -350,7 +362,7 @@ class PatientCaseController extends Controller
 
     public function detail($guid){
 
-        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users','case_status_users.user_detail:id,first_name,last_name,username', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])
+        $patient_cases = PatientCase::with(['users','images', 'xrays', 'created_user', 'case_plans', 'case_status_users','case_status_users.user_detail:id,first_name,last_name,username,profile_pic', 'case_status_users.cases_status_users_comments', 'planner', 'qa', 'post_processing'])
                                 // ->when($this->role_name, function($q){
                                 //     if($this->role_name == 'post_processing'){
                                 //         $q->whereIn('status', [8, 9, 10]);
@@ -780,6 +792,8 @@ class PatientCaseController extends Controller
             $cases_status_users_comment->save();
         }
 
+        $this->updateStartDateTimeInString();
+
         $this->response['message'] = 'Patient case assigned successfully!';
         $this->response['data'] = $patient_cases;
         $this->response['status'] = $this->status;
@@ -824,6 +838,8 @@ class PatientCaseController extends Controller
         $patient_cases->start_date_time = date('Y-m-d H:i:s');
         $patient_cases->save();
 
+        $this->updateStartDateTimeInString();
+
         $this->response['message'] = 'Verified by client successfully!';
         $this->response['data'] = $patient_cases;
         $this->response['status'] = $this->status;
@@ -834,7 +850,10 @@ class PatientCaseController extends Controller
     public function completed_cases(){
 
         $completed_cases = PatientCase::with(['created_user', 'planner'])->where('status', 18)->where(function($q){
-                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
+                                        $q->where(function ($query) {
+                                            $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                        });
+                                        // $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->Orwhere('client_id', auth()->user()->id);
                                 })->orderBy('id', 'DESC')->orderBy('is_priority', 'DESC')->get();
 
         $this->response['message'] = 'Completed cases list!';
@@ -957,6 +976,40 @@ class PatientCaseController extends Controller
         $this->response['status'] = false;
         return response()->json($this->response, $this->status);
         
+    }
+    
+    public function updateStartDateTimeInString(){
+        $cases = PatientCase::all();
+        if(!empty($cases)){
+            foreach ($cases as $key => $value) {
+                $case = PatientCase::where('id', $value->id)->first();
+                if(!empty($case) && !empty($case->start_date_time)){
+                    $result = $this->addHours($case);
+                    $case->start_date_time_timestamp_string = strtotime($result);
+                    $case->save();
+                }
+            }
+        }
+
+        $this->response['message'] = 'Time update successfull!';
+        $this->response['data'] = [];
+        $this->response['status'] = true;
+        return response()->json($this->response, $this->status);
+    }
+
+    public function addHours($case){
+        $originalDateTime = $case->start_date_time;
+
+        // Parse the original date-time
+        $carbonDateTime = Carbon::parse($originalDateTime);
+
+        // Add 8 hours
+        $hours = (int)$case->expected_time ?? 0;
+        $newDateTime = $carbonDateTime->addHours($hours);
+
+        // Output the result
+        return $newDateTime->toDateTimeString(); // Outputs: 2024-11-22 08:00:59
+    
     }
     
     

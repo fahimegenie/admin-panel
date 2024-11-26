@@ -304,9 +304,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -329,9 +337,17 @@ class DashboardController extends Controller
                                             $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                         }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                             if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                             }else{
-                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                             }
                                         }
                                     })
@@ -354,9 +370,17 @@ class DashboardController extends Controller
                                             $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                         }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                             if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                             }else{
-                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                             }
                                         }
                                     })
@@ -379,9 +403,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -404,9 +436,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -429,9 +469,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -454,9 +502,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -479,9 +535,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -504,9 +568,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -529,9 +601,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -554,9 +634,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -577,9 +665,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -602,9 +698,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -627,9 +731,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -652,9 +764,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -677,9 +797,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -702,9 +830,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -727,9 +863,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -759,9 +903,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -780,9 +932,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -801,9 +961,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -822,9 +990,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -843,9 +1019,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -864,9 +1048,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -885,9 +1077,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -906,9 +1106,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -927,9 +1135,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -948,9 +1164,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -969,9 +1193,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -990,9 +1222,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1011,9 +1251,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1032,9 +1280,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1053,9 +1309,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1074,9 +1338,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1095,9 +1367,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1116,9 +1396,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1149,9 +1437,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1176,9 +1472,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1203,9 +1507,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1230,9 +1542,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1257,9 +1577,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1284,9 +1612,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1311,9 +1647,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1338,9 +1682,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1365,9 +1717,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1392,9 +1752,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1419,9 +1787,17 @@ class DashboardController extends Controller
                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                     }else{
-                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                     }
                                                 }
                                             })
@@ -1443,9 +1819,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -1470,9 +1854,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -1497,9 +1889,17 @@ class DashboardController extends Controller
                                                             $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                         }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                             if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                             }else{
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                             }
                                                         }
                                                     })
@@ -1524,9 +1924,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -1551,9 +1959,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -1578,9 +1994,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1605,9 +2029,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1640,9 +2072,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1665,9 +2105,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1691,9 +2139,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1716,9 +2172,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1741,9 +2205,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1766,9 +2238,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1791,9 +2271,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1816,9 +2304,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1841,9 +2337,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1866,9 +2370,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1891,9 +2403,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -1914,9 +2434,17 @@ class DashboardController extends Controller
                                                             $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                         }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                             if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                             }else{
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                             }
                                                         }
                                                     })
@@ -1939,9 +2467,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -1964,9 +2500,17 @@ class DashboardController extends Controller
                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                     }else{
-                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                     }
                                                 }
                                             })
@@ -1989,9 +2533,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2014,9 +2566,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2039,9 +2599,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2064,9 +2632,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2105,9 +2681,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2117,9 +2701,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2129,9 +2721,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })
@@ -2142,9 +2742,17 @@ class DashboardController extends Controller
                                                             $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                         }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                             if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                             }else{
-                                                                $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                             }
                                                         }
                                                     })
@@ -2155,9 +2763,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2167,9 +2783,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2180,9 +2804,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })
@@ -2193,9 +2825,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2205,9 +2845,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2217,9 +2865,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2229,9 +2885,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2241,9 +2905,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2253,9 +2925,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2265,9 +2945,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2277,9 +2965,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2289,9 +2985,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2301,9 +3005,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->count();
@@ -2324,9 +3036,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->orderBy('created_at', 'asc')->get();
@@ -2351,9 +3071,17 @@ class DashboardController extends Controller
                                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                     }else{
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                     }
                                                                 }
                                                             })->orderBy('created_at', 'asc')->get();
@@ -2385,9 +3113,17 @@ class DashboardController extends Controller
                                                         $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                     }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                         if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                            //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                         }else{
-                                                            $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                            $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                         }
                                                     }
                                                 })->orderBy('created_at', 'asc')->get();
@@ -2412,9 +3148,17 @@ class DashboardController extends Controller
                                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                     }else{
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                     }
                                                                 }
                                                             })->orderBy('created_at', 'asc')->get();
@@ -2452,9 +3196,17 @@ class DashboardController extends Controller
                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                 }else{
-                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                 }
                                             }
                                         })->orderBy('created_at', 'asc')->get();
@@ -2678,9 +3430,17 @@ class DashboardController extends Controller
                                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                 }else{
-                                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                 }
                                                             }
                                                         })->orderBy('created_at', 'asc')->get();
@@ -2705,9 +3465,17 @@ class DashboardController extends Controller
                                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                     }else{
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                     }
                                                                 }
                                                             })->orderBy('created_at', 'asc')->get();
@@ -2741,9 +3509,17 @@ class DashboardController extends Controller
                                                                 $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                             }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                 if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                    //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                 }else{
-                                                                    $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                    $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                 }
                                                             }
                                                         })->orderBy('created_at', 'asc')->get();
@@ -2768,9 +3544,17 @@ class DashboardController extends Controller
                                                                     $q->whereIn('status', [9, 10, 13, 14, 15, 17]);
                                                                 }else if($role_names != 'super_admin' && $role_names != 'case_submission'){
                                                                     if(auth()->user()->email == 'drshakeelahmed_vk@yahoo.com' && !empty(auth()->user()->client_id)){
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)
+                                                            ->orWhere('assign_to', auth()->user()->id)
+                                                            ->orWhere('client_id', auth()->user()->id)
+                                                            ->orWhere('created_by', auth()->user()->client_id);
+                                                    });
+                                                                        //$q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id)->orWhere('created_by', auth()->user()->client_id);
                                                                     }else{
-                                                                        $q->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                                        $q->where(function ($query) {
+                                                        $query->where('created_by', auth()->user()->id)->orWhere('assign_to', auth()->user()->id)->orWhere('client_id', auth()->user()->id);
+                                                    });
                                                                     }
                                                                 }
                                                             })->orderBy('created_at', 'asc')->get();
@@ -2803,12 +3587,38 @@ class DashboardController extends Controller
 
         // Calculate total count for all statuses
         $totalCount = $products->sum('count');
+        
+        
+                
 
         // Get the count for status 8
-        $status8Count = $products->firstWhere('status', 8)->count ?? 1; // Default to 1 to avoid division by zero
+        //$status8Count = $products->firstWhere('status', 8)->count ?? 1; // Default to 1 to avoid division by zero
 
         // Calculate the average count and divide by the count of status 8
-        $averageCount = $totalCount / $status8Count;
+        //if(request()->debug && request()->debug == 1){
+            
+            $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
+            $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+            
+            $status8Count = DB::table('patient_cases')
+                ->whereIn('status', [8, 13, 14, 17])
+                ->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])
+                ->count();
+                
+            // $status8Count = DB::table('patient_cases')
+            //     // ->select('status', DB::raw('count(*) as count'))
+            //     ->whereIn('status', [8, 13, 14, 17])
+            //     // ->groupBy('status')
+            //     ->get()->count();
+                
+                $averageCount = (($status8Count / $totalCount) * 100);
+
+          //  dd($totalCount, $status8Count, $status8Counts, $averageCount);
+        //}
+        
+        //$averageCount = $totalCount / $status8Count;
+        
+        // $averageCount = $totalCount / $status8Count;
         $patient_cases['over_all_ratio_count'] = $averageCount;
         return $patient_cases;
 
